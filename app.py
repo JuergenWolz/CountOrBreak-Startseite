@@ -77,6 +77,22 @@ st.markdown(
     <style>
 
     /* ========================================================
+       GOLD-FARBPALETTE
+       ======================================================== */
+
+    :root {
+        --cb-gold: #d5a84f;
+        --cb-gold-light: #e6c271;
+        --cb-gold-bright: #f0d28a;
+        --cb-gold-dark: #8f641d;
+        --cb-gold-border: #b88932;
+        --cb-text: #f0e5ce;
+        --cb-subtext: #a9a399;
+        --cb-background: #040404;
+    }
+
+
+    /* ========================================================
        GRUNDLAYOUT
        ======================================================== */
 
@@ -184,7 +200,7 @@ st.markdown(
 
 
     /* ========================================================
-       MOTIVATION
+       MOTIVATIONSSPRUCH
        ======================================================== */
 
     .cb-motivation {
@@ -197,25 +213,27 @@ st.markdown(
 
 
     .cb-motivation-text {
-        color: #d9ae54;
+        color: var(--cb-gold-light);
 
         font-family:
+            "Palatino Linotype",
+            "Book Antiqua",
+            Palatino,
             Georgia,
-            "Times New Roman",
             serif;
 
         font-size: clamp(18px, 2vw, 27px);
 
-        font-weight: 500;
+        font-weight: 600;
 
-        letter-spacing: 0.18em;
+        letter-spacing: 0.16em;
 
         text-shadow:
-            0 0 8px
-            rgba(218, 174, 84, 0.25),
+            0 0 7px
+            rgba(213, 168, 79, 0.38),
 
-            0 0 20px
-            rgba(218, 174, 84, 0.08);
+            0 0 18px
+            rgba(213, 168, 79, 0.15);
     }
 
 
@@ -230,15 +248,15 @@ st.markdown(
             linear-gradient(
                 90deg,
                 transparent,
-                #8b611a,
-                #e0b75e,
-                #8b611a,
+                var(--cb-gold-dark),
+                var(--cb-gold-light),
+                var(--cb-gold-dark),
                 transparent
             );
 
         box-shadow:
             0 0 8px
-            rgba(211, 164, 65, 0.22);
+            rgba(211, 164, 65, 0.25);
     }
 
 
@@ -261,7 +279,7 @@ st.markdown(
 
 
     /* ========================================================
-       MENÜ-KARTE
+       MENÜ-KARTEN
        ======================================================== */
 
     .cb-card {
@@ -277,55 +295,71 @@ st.markdown(
         background:
             linear-gradient(
                 135deg,
-                rgba(25, 25, 25, 0.98),
-                rgba(8, 8, 8, 0.99)
+                rgba(27, 27, 27, 0.99),
+                rgba(7, 7, 7, 0.99)
             );
 
         border:
             1px solid
-            rgba(177, 130, 39, 0.72);
+            rgba(184, 137, 50, 0.78);
 
         border-radius: 11px;
 
         box-shadow:
             inset
             0 0 0 1px
-            rgba(255, 218, 130, 0.025),
+            rgba(240, 194, 102, 0.035),
 
             inset
-            0 0 28px
-            rgba(192, 143, 46, 0.025),
+            0 0 25px
+            rgba(192, 143, 46, 0.035),
+
+            0 0 9px
+            rgba(183, 136, 46, 0.12),
 
             0 10px 32px
-            rgba(0, 0, 0, 0.46);
+            rgba(0, 0, 0, 0.48);
 
         transition:
-            transform 0.2s ease,
-            border-color 0.2s ease,
-            box-shadow 0.2s ease;
+            transform 0.22s ease,
+            border-color 0.22s ease,
+            box-shadow 0.22s ease,
+            background 0.22s ease;
     }
 
 
     .cb-card:hover {
-        transform: translateY(-3px);
+        transform: translateY(-4px);
 
-        border-color: #d5a94e;
+        border-color:
+            var(--cb-gold-light);
+
+        background:
+            linear-gradient(
+                135deg,
+                rgba(31, 29, 23, 0.99),
+                rgba(9, 9, 8, 0.99)
+            );
 
         box-shadow:
             inset
             0 0 0 1px
-            rgba(255, 218, 130, 0.04),
+            rgba(255, 218, 130, 0.055),
 
-            0 13px 38px
-            rgba(0, 0, 0, 0.58),
+            inset
+            0 0 30px
+            rgba(192, 143, 46, 0.055),
 
-            0 0 20px
-            rgba(194, 143, 46, 0.13);
+            0 0 15px
+            rgba(204, 157, 64, 0.22),
+
+            0 15px 38px
+            rgba(0, 0, 0, 0.60);
     }
 
 
     /* ========================================================
-       PIKTOGRAMM
+       PIKTOGRAMME
        ======================================================== */
 
     .cb-icon-wrapper {
@@ -354,8 +388,23 @@ st.markdown(
         filter:
             drop-shadow(
                 0 0 8px
-                rgba(214, 166, 70, 0.16)
+                rgba(214, 166, 70, 0.18)
             );
+
+        transition:
+            filter 0.22s ease,
+            transform 0.22s ease;
+    }
+
+
+    .cb-card:hover .cb-icon-wrapper img {
+        filter:
+            drop-shadow(
+                0 0 11px
+                rgba(225, 178, 78, 0.32)
+            );
+
+        transform: scale(1.035);
     }
 
 
@@ -371,25 +420,31 @@ st.markdown(
 
 
     .cb-card-title {
-        color: #f0e5ce;
+        color: var(--cb-gold-light);
 
         font-family:
+            "Palatino Linotype",
+            "Book Antiqua",
+            Palatino,
             Georgia,
-            "Times New Roman",
             serif;
 
         font-size: 25px;
 
-        font-weight: 500;
+        font-weight: 600;
 
         letter-spacing: 0.035em;
 
         margin-bottom: 8px;
+
+        text-shadow:
+            0 0 7px
+            rgba(213, 168, 79, 0.18);
     }
 
 
     .cb-card-subtitle {
-        color: #a9a399;
+        color: var(--cb-subtext);
 
         font-family:
             Arial,
@@ -407,7 +462,7 @@ st.markdown(
        ======================================================== */
 
     .cb-arrow {
-        color: #bd8d37;
+        color: var(--cb-gold);
 
         font-family:
             Arial,
@@ -421,15 +476,20 @@ st.markdown(
         margin-left: 18px;
 
         transition:
-            transform 0.2s ease,
-            color 0.2s ease;
+            transform 0.22s ease,
+            color 0.22s ease,
+            text-shadow 0.22s ease;
     }
 
 
     .cb-card:hover .cb-arrow {
-        color: #e2b85c;
+        color: var(--cb-gold-bright);
 
         transform: translateX(5px);
+
+        text-shadow:
+            0 0 10px
+            rgba(225, 178, 78, 0.30);
     }
 
 
@@ -468,22 +528,72 @@ st.markdown(
 
         border:
             1px solid
-            #b8872c;
+            rgba(190, 145, 54, 0.88);
 
         border-radius: 11px;
 
         box-shadow:
             inset
-            0 0 28px
-            rgba(201, 151, 47, 0.035),
+            0 0 0 1px
+            rgba(240, 194, 102, 0.045),
+
+            inset
+            0 0 30px
+            rgba(201, 151, 47, 0.045),
+
+            0 0 12px
+            rgba(190, 139, 39, 0.13),
 
             0 12px 38px
-            rgba(0, 0, 0, 0.52),
+            rgba(0, 0, 0, 0.52);
 
-            0 0 18px
-            rgba(190, 139, 39, 0.08);
+        cursor: pointer;
+
+        transition:
+            transform 0.22s ease,
+            border-color 0.22s ease,
+            box-shadow 0.22s ease,
+            background 0.22s ease;
     }
 
+
+    /* ========================================================
+       HOVER-EFFEKT RECHNER
+       ======================================================== */
+
+    .cb-position-card:hover {
+        transform: translateY(-4px);
+
+        border-color:
+            var(--cb-gold-bright);
+
+        background:
+            linear-gradient(
+                135deg,
+                rgba(48, 36, 15, 0.99),
+                rgba(10, 10, 9, 0.99)
+            );
+
+        box-shadow:
+            inset
+            0 0 0 1px
+            rgba(255, 218, 130, 0.06),
+
+            inset
+            0 0 35px
+            rgba(201, 151, 47, 0.07),
+
+            0 0 19px
+            rgba(210, 164, 68, 0.25),
+
+            0 16px 42px
+            rgba(0, 0, 0, 0.62);
+    }
+
+
+    /* ========================================================
+       RECHNER ICON
+       ======================================================== */
 
     .cb-position-icon {
         width: 90px;
@@ -511,10 +621,29 @@ st.markdown(
         filter:
             drop-shadow(
                 0 0 8px
-                rgba(220, 171, 72, 0.18)
+                rgba(220, 171, 72, 0.20)
+            );
+
+        transition:
+            transform 0.22s ease,
+            filter 0.22s ease;
+    }
+
+
+    .cb-position-card:hover .cb-position-icon img {
+        transform: scale(1.05);
+
+        filter:
+            drop-shadow(
+                0 0 13px
+                rgba(225, 178, 78, 0.34)
             );
     }
 
+
+    /* ========================================================
+       RECHNER TEXT
+       ======================================================== */
 
     .cb-position-content {
         text-align: center;
@@ -522,20 +651,26 @@ st.markdown(
 
 
     .cb-position-title {
-        color: #e4bd67;
+        color: var(--cb-gold-light);
 
         font-family:
+            "Palatino Linotype",
+            "Book Antiqua",
+            Palatino,
             Georgia,
-            "Times New Roman",
             serif;
 
         font-size: 27px;
 
-        font-weight: 500;
+        font-weight: 600;
 
         letter-spacing: 0.035em;
 
         margin-bottom: 9px;
+
+        text-shadow:
+            0 0 8px
+            rgba(213, 168, 79, 0.20);
     }
 
 
@@ -591,7 +726,7 @@ st.markdown(
 
 
     .cb-footer-gold {
-        color: #b98a37;
+        color: var(--cb-gold);
 
         font-size: 17px;
     }
@@ -758,10 +893,12 @@ if logo_data:
     st.html(
         f"""
         <div class="cb-logo">
+
             <img
                 src="data:image/png;base64,{logo_data}"
                 alt="CountOrBreak Logo"
             >
+
         </div>
         """
     )
@@ -798,18 +935,21 @@ st.html(
 
 
 # ============================================================
-# HAUPTMENÜ
+# PIKTOGRAMM-BEREICHE
 # ============================================================
 
 journal_html = ""
 
 if journal_data:
+
     journal_html = f"""
     <div class="cb-icon-wrapper">
+
         <img
             src="data:image/png;base64,{journal_data}"
             alt="Journal"
         >
+
     </div>
     """
 
@@ -817,12 +957,15 @@ if journal_data:
 auswertungen_html = ""
 
 if auswertungen_data:
+
     auswertungen_html = f"""
     <div class="cb-icon-wrapper">
+
         <img
             src="data:image/png;base64,{auswertungen_data}"
             alt="Auswertungen"
         >
+
     </div>
     """
 
@@ -830,12 +973,15 @@ if auswertungen_data:
 strategien_html = ""
 
 if strategien_data:
+
     strategien_html = f"""
     <div class="cb-icon-wrapper">
+
         <img
             src="data:image/png;base64,{strategien_data}"
             alt="Strategien"
         >
+
     </div>
     """
 
@@ -843,24 +989,29 @@ if strategien_data:
 wissen_html = ""
 
 if wissen_data:
+
     wissen_html = f"""
     <div class="cb-icon-wrapper">
+
         <img
             src="data:image/png;base64,{wissen_data}"
             alt="Wissen"
         >
+
     </div>
     """
 
+
+# ============================================================
+# HAUPTMENÜ
+# ============================================================
 
 st.html(
     f"""
     <div class="cb-menu-grid">
 
 
-        <!-- ================================================
-             JOURNAL
-             ================================================ -->
+        <!-- JOURNAL -->
 
         <div class="cb-card">
 
@@ -885,9 +1036,7 @@ st.html(
         </div>
 
 
-        <!-- ================================================
-             AUSWERTUNGEN
-             ================================================ -->
+        <!-- AUSWERTUNGEN -->
 
         <div class="cb-card">
 
@@ -912,9 +1061,7 @@ st.html(
         </div>
 
 
-        <!-- ================================================
-             STRATEGIEN
-             ================================================ -->
+        <!-- STRATEGIEN -->
 
         <div class="cb-card">
 
@@ -939,9 +1086,7 @@ st.html(
         </div>
 
 
-        <!-- ================================================
-             WISSEN
-             ================================================ -->
+        <!-- WISSEN -->
 
         <div class="cb-card">
 
