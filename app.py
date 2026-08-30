@@ -1,6 +1,5 @@
 import streamlit as st
 from pathlib import Path
-import base64
 
 
 # ============================================================
@@ -9,7 +8,7 @@ import base64
 
 st.set_page_config(
     page_title="CountOrBreak",
-    page_icon="◈",
+    page_icon="countorbreak_logo.png",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
@@ -19,30 +18,16 @@ st.set_page_config(
 # LOGO
 # ============================================================
 
-LOGO_PATH = Path("countorbreak_logo.png")
+logo_path = Path("countorbreak_logo.png")
 
-
-def get_logo_base64():
-    if LOGO_PATH.exists():
-        try:
-            return base64.b64encode(LOGO_PATH.read_bytes()).decode("utf-8")
-        except Exception:
-            return None
-    return None
-
-
-logo_base64 = get_logo_base64()
+if logo_path.exists():
+    logo_bytes = logo_path.read_bytes()
+else:
+    logo_bytes = None
 
 
 # ============================================================
-# MOTIVATIONSSPRUCH
-# ============================================================
-
-motivation = "TRADE DEN PLAN. NICHT DIE EMOTION."
-
-
-# ============================================================
-# CSS
+# DESIGN
 # ============================================================
 
 st.markdown(
@@ -51,33 +36,31 @@ st.markdown(
 
     /* --------------------------------------------------------
        GRUNDLAYOUT
-       -------------------------------------------------------- */
+    -------------------------------------------------------- */
 
     .stApp {
         background:
             radial-gradient(
-                circle at 50% 35%,
-                rgba(70, 50, 15, 0.10) 0%,
-                rgba(0, 0, 0, 0) 42%
+                circle at 50% 0%,
+                rgba(212, 160, 60, 0.08),
+                transparent 35%
             ),
             #050505;
-
-        color: #f3e3b0;
+        color: #f4f1e8;
     }
-
-
-    /* Streamlit Standard-Abstände entfernen */
 
     .block-container {
         max-width: 1450px;
-        padding-top: 2.2rem;
-        padding-bottom: 3rem;
+        padding-top: 2rem;
+        padding-bottom: 4rem;
     }
 
 
-    /* Header / Menü von Streamlit ausblenden */
+    /* --------------------------------------------------------
+       STREAMLIT ELEMENTE AUSBLENDEN
+    -------------------------------------------------------- */
 
-    header {
+    #MainMenu {
         visibility: hidden;
     }
 
@@ -85,110 +68,60 @@ st.markdown(
         visibility: hidden;
     }
 
-
-    /* --------------------------------------------------------
-       GOLD-FARBEN
-       -------------------------------------------------------- */
-
-    :root {
-        --gold-main: #d6a936;
-        --gold-light: #f5d778;
-        --gold-bright: #ffe49a;
-        --gold-dark: #8f6919;
-        --gold-border: rgba(214, 169, 54, 0.72);
-        --gold-soft: rgba(214, 169, 54, 0.16);
+    header {
+        visibility: hidden;
     }
 
 
     /* --------------------------------------------------------
-       OBERER TRENNER
-       -------------------------------------------------------- */
+       LOGO
+    -------------------------------------------------------- */
+
+    .cb-logo {
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 35px;
+    }
+
+    .cb-logo img {
+        width: min(520px, 80%);
+        max-height: 260px;
+        object-fit: contain;
+    }
+
+
+    /* --------------------------------------------------------
+       GOLDENE LINIE
+    -------------------------------------------------------- */
 
     .cb-top-line {
-        width: 62%;
         height: 1px;
-        margin: 0 auto 12px auto;
+        width: 100%;
+        margin: 0 auto 40px auto;
 
         background:
             linear-gradient(
                 90deg,
                 transparent,
-                rgba(214,169,54,0.12),
-                rgba(214,169,54,0.85),
-                rgba(214,169,54,0.12),
+                #8f641b,
+                #d5a94f,
+                #8f641b,
                 transparent
             );
 
-        position: relative;
-    }
-
-    .cb-top-line::after {
-        content: "";
-        position: absolute;
-
-        width: 9px;
-        height: 9px;
-
-        left: 50%;
-        top: -4px;
-
-        transform: translateX(-50%) rotate(45deg);
-
-        background: #e5bd50;
-
         box-shadow:
-            0 0 10px rgba(214,169,54,0.65);
-    }
-
-
-    /* --------------------------------------------------------
-       LOGO ALS HINTERGRUND
-       -------------------------------------------------------- */
-
-    .cb-logo-background {
-        position: fixed;
-
-        left: 50%;
-        top: 46%;
-
-        transform: translate(-50%, -50%);
-
-        width: min(820px, 70vw);
-
-        opacity: 0.075;
-
-        z-index: 0;
-
-        pointer-events: none;
-
-        filter:
-            grayscale(0.05)
-            contrast(1.05)
-            brightness(0.9);
-    }
-
-
-    .cb-logo-background img {
-        width: 100%;
-        height: auto;
-        display: block;
+            0 0 12px rgba(212, 160, 60, 0.35);
     }
 
 
     /* --------------------------------------------------------
        MOTIVATION
-       -------------------------------------------------------- */
+    -------------------------------------------------------- */
 
     .cb-motivation {
-        position: relative;
-        z-index: 2;
-
         text-align: center;
-
-        margin-top: 46px;
-        margin-bottom: 48px;
+        margin: 10px auto 50px auto;
     }
-
 
     .cb-motivation-text {
         font-family:
@@ -196,118 +129,78 @@ st.markdown(
             Helvetica,
             sans-serif;
 
-        font-size: clamp(30px, 3.3vw, 55px);
+        font-size: clamp(18px, 2vw, 27px);
+        font-weight: 500;
+        letter-spacing: 0.22em;
 
-        font-weight: 800;
-
-        letter-spacing: 0.095em;
-
-        line-height: 1.12;
-
-        color: #f2ce67;
+        color: #d8b66a;
 
         text-shadow:
-            0 0 12px rgba(214,169,54,0.18),
-            0 0 30px rgba(214,169,54,0.08);
+            0 0 10px rgba(212, 160, 60, 0.22);
+
+        margin-bottom: 18px;
     }
 
-
     .cb-motivation-line {
-        width: 46%;
-
+        width: min(600px, 75%);
         height: 1px;
-
-        margin: 27px auto 0 auto;
+        margin: 0 auto;
 
         background:
             linear-gradient(
                 90deg,
                 transparent,
-                rgba(214,169,54,0.70),
+                #b48731,
+                #e2bd63,
+                #b48731,
                 transparent
             );
-
-        position: relative;
-    }
-
-
-    .cb-motivation-line::after {
-        content: "";
-
-        position: absolute;
-
-        width: 9px;
-        height: 9px;
-
-        background: #e4bd51;
-
-        left: 50%;
-        top: -4px;
-
-        transform: translateX(-50%) rotate(45deg);
-
-        box-shadow:
-            0 0 12px rgba(214,169,54,0.60);
     }
 
 
     /* --------------------------------------------------------
        MENÜ
-       -------------------------------------------------------- */
+    -------------------------------------------------------- */
 
-    .cb-menu {
-        position: relative;
-        z-index: 2;
-
-        width: 94%;
-        max-width: 1280px;
-
-        margin: 0 auto;
-    }
-
-
-    .cb-grid {
+    .cb-menu-grid {
         display: grid;
 
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns:
+            repeat(2, minmax(280px, 1fr));
 
-        gap: 28px;
+        gap: 24px;
 
-        margin-top: 18px;
+        width: min(1100px, 94%);
+        margin: 0 auto;
     }
 
 
     /* --------------------------------------------------------
        MENÜ-KARTEN
-       -------------------------------------------------------- */
+    -------------------------------------------------------- */
 
     .cb-card {
-        min-height: 145px;
+        min-height: 135px;
 
         display: flex;
-
         align-items: center;
 
-        position: relative;
-
-        padding: 26px 30px;
-
-        border-radius: 20px;
-
-        border: 1px solid var(--gold-border);
+        padding: 25px 28px;
 
         background:
             linear-gradient(
                 135deg,
-                rgba(32,27,18,0.92),
-                rgba(8,8,8,0.96)
+                rgba(22, 22, 22, 0.98),
+                rgba(9, 9, 9, 0.98)
             );
 
-        box-shadow:
-            inset 0 0 30px rgba(214,169,54,0.035),
-            0 14px 35px rgba(0,0,0,0.35);
+        border: 1px solid rgba(172, 126, 39, 0.65);
 
-        overflow: hidden;
+        border-radius: 10px;
+
+        box-shadow:
+            inset 0 0 0 1px rgba(255, 215, 120, 0.035),
+            0 8px 30px rgba(0, 0, 0, 0.35);
 
         transition:
             transform 0.2s ease,
@@ -315,397 +208,275 @@ st.markdown(
             box-shadow 0.2s ease;
     }
 
-
-    .cb-card::before {
-        content: "";
-
-        position: absolute;
-
-        left: 0;
-        top: 0;
-
-        width: 45%;
-        height: 100%;
-
-        background:
-            radial-gradient(
-                circle at 0% 50%,
-                rgba(214,169,54,0.10),
-                transparent 68%
-            );
-
-        pointer-events: none;
-    }
-
-
     .cb-card:hover {
         transform: translateY(-3px);
 
-        border-color: rgba(245,215,120,0.92);
+        border-color: #d4aa50;
 
         box-shadow:
-            inset 0 0 35px rgba(214,169,54,0.055),
-            0 18px 42px rgba(0,0,0,0.46),
-            0 0 22px rgba(214,169,54,0.08);
+            0 10px 35px rgba(0, 0, 0, 0.55),
+            0 0 18px rgba(190, 140, 45, 0.12);
     }
 
 
     /* --------------------------------------------------------
-       PIKTOGRAMM
-       -------------------------------------------------------- */
+       PIKTOGRAMME
+    -------------------------------------------------------- */
 
     .cb-icon {
-        flex: 0 0 74px;
-
-        width: 74px;
-        height: 74px;
-
-        border-radius: 50%;
-
-        border: 1px solid rgba(214,169,54,0.70);
+        width: 52px;
+        min-width: 52px;
+        height: 52px;
 
         display: flex;
-
         align-items: center;
         justify-content: center;
 
-        margin-right: 25px;
+        margin-right: 22px;
 
-        font-size: 31px;
+        border: 1px solid rgba(194, 148, 58, 0.55);
+        border-radius: 8px;
 
-        color: #e4bf5b;
+        color: #d7ad54;
+
+        font-size: 25px;
 
         background:
-            radial-gradient(
-                circle,
-                rgba(214,169,54,0.12),
-                rgba(0,0,0,0.05) 68%
+            linear-gradient(
+                145deg,
+                rgba(40, 32, 17, 0.8),
+                rgba(13, 13, 13, 0.9)
             );
 
         box-shadow:
-            inset 0 0 18px rgba(214,169,54,0.055);
+            inset 0 0 15px rgba(194, 148, 58, 0.06);
     }
 
 
     /* --------------------------------------------------------
        TEXT
-       -------------------------------------------------------- */
+    -------------------------------------------------------- */
 
     .cb-card-content {
-        position: relative;
-        z-index: 2;
-
         flex: 1;
     }
 
-
     .cb-card-title {
-        color: #e7bf56;
-
-        font-family:
-            Arial,
-            Helvetica,
-            sans-serif;
-
         font-size: 21px;
+        font-weight: 600;
 
-        font-weight: 800;
+        letter-spacing: 0.04em;
 
-        letter-spacing: 0.14em;
+        color: #f0e7d1;
 
-        text-transform: uppercase;
-
-        margin-bottom: 9px;
+        margin-bottom: 8px;
     }
 
-
     .cb-card-subtitle {
-        color: rgba(238,231,214,0.72);
+        font-size: 14px;
 
-        font-family:
-            Arial,
-            Helvetica,
-            sans-serif;
+        color: #9c978c;
 
-        font-size: 15px;
-
-        letter-spacing: 0.025em;
+        line-height: 1.5;
     }
 
 
     /* --------------------------------------------------------
        PFEIL
-       -------------------------------------------------------- */
+    -------------------------------------------------------- */
 
     .cb-arrow {
-        color: #e4bd51;
+        margin-left: 15px;
 
-        font-size: 35px;
+        color: #b88a35;
 
-        font-family:
-            Arial,
-            Helvetica,
-            sans-serif;
+        font-size: 30px;
+        font-weight: 300;
 
-        margin-left: 20px;
+        transition:
+            transform 0.2s ease,
+            color 0.2s ease;
+    }
 
-        line-height: 1;
+    .cb-card:hover .cb-arrow {
+        color: #e1b85d;
+        transform: translateX(4px);
     }
 
 
     /* --------------------------------------------------------
-       POSITIONENSGRÖSSENRECHNER
-       -------------------------------------------------------- */
+       POSITIONSSGRÖSSENRECHNER
+    -------------------------------------------------------- */
 
     .cb-position-wrapper {
-        position: relative;
-
-        z-index: 2;
-
-        width: 70%;
-        max-width: 930px;
-
-        margin: 34px auto 0 auto;
+        width: min(1100px, 94%);
+        margin: 38px auto 0 auto;
     }
 
-
     .cb-position-card {
-        min-height: 122px;
+        min-height: 115px;
 
         display: flex;
-
         align-items: center;
 
-        padding: 22px 30px;
-
-        border-radius: 19px;
-
-        border: 1px solid rgba(224,182,66,0.82);
+        padding: 22px 28px;
 
         background:
             linear-gradient(
                 135deg,
-                rgba(31,26,17,0.94),
-                rgba(8,8,8,0.97)
+                rgba(30, 24, 12, 0.92),
+                rgba(10, 10, 10, 0.98)
             );
 
+        border: 1px solid #a97924;
+
+        border-radius: 10px;
+
         box-shadow:
-            inset 0 0 30px rgba(214,169,54,0.045),
-            0 15px 38px rgba(0,0,0,0.36);
+            0 10px 35px rgba(0, 0, 0, 0.45),
+            inset 0 0 25px rgba(194, 148, 58, 0.04);
     }
 
-
     .cb-position-icon {
-        flex: 0 0 68px;
-
-        width: 68px;
-        height: 68px;
-
-        border-radius: 50%;
-
-        border: 1px solid rgba(214,169,54,0.72);
+        width: 52px;
+        min-width: 52px;
+        height: 52px;
 
         display: flex;
-
         align-items: center;
         justify-content: center;
 
-        margin-right: 23px;
+        margin-right: 22px;
 
-        font-size: 29px;
+        border: 1px solid #b48731;
+        border-radius: 8px;
 
-        color: #e8c35f;
+        color: #ddb45d;
 
-        background:
-            radial-gradient(
-                circle,
-                rgba(214,169,54,0.13),
-                transparent 70%
-            );
+        font-size: 25px;
     }
-
 
     .cb-position-content {
         flex: 1;
     }
 
-
     .cb-position-title {
-        color: #e8c35f;
+        color: #e5c275;
 
         font-size: 20px;
-
-        font-weight: 800;
-
-        letter-spacing: 0.13em;
-
-        text-transform: uppercase;
+        font-weight: 600;
 
         margin-bottom: 7px;
     }
 
-
     .cb-position-subtitle {
-        color: rgba(238,231,214,0.68);
+        color: #a7a196;
 
         font-size: 14px;
-
-        letter-spacing: 0.025em;
     }
 
-
     .cb-position-arrow {
-        color: #e4bd51;
+        color: #c5963d;
 
-        font-size: 34px;
+        font-size: 30px;
 
-        margin-left: 20px;
+        margin-left: 15px;
     }
 
 
     /* --------------------------------------------------------
        FOOTER
-       -------------------------------------------------------- */
+    -------------------------------------------------------- */
 
     .cb-footer {
-        position: relative;
+        width: min(1100px, 94%);
 
-        z-index: 2;
-
-        width: 88%;
-
-        margin: 52px auto 0 auto;
+        margin: 55px auto 0 auto;
 
         display: flex;
-
         justify-content: space-between;
-
         align-items: center;
 
-        color: rgba(230,210,160,0.45);
+        color: #77736a;
 
-        font-size: 11px;
+        font-size: 12px;
 
-        letter-spacing: 0.12em;
-
-        text-transform: uppercase;
+        letter-spacing: 0.05em;
     }
-
 
     .cb-footer-left {
         display: flex;
-
         align-items: center;
-
         gap: 9px;
     }
 
-
     .cb-footer-shield {
-        color: #d8ae40;
-
-        font-size: 15px;
+        color: #b78b38;
+        font-size: 17px;
     }
 
+    .cb-footer-right {
+        text-align: right;
+    }
 
     .cb-footer-line {
-        position: relative;
-
-        z-index: 2;
-
-        width: 88%;
+        width: min(1100px, 94%);
 
         height: 1px;
 
-        margin: 14px auto 0 auto;
+        margin: 15px auto 0 auto;
 
         background:
             linear-gradient(
                 90deg,
                 transparent,
-                rgba(214,169,54,0.22),
+                rgba(170, 125, 38, 0.65),
                 transparent
             );
     }
 
 
     /* --------------------------------------------------------
-       STREAMLIT BUTTONS
-       -------------------------------------------------------- */
-
-    div.stButton > button {
-        background: transparent !important;
-
-        border: none !important;
-
-        color: transparent !important;
-
-        width: 100% !important;
-
-        height: 100% !important;
-    }
-
-
-    /* --------------------------------------------------------
        MOBILE
-       -------------------------------------------------------- */
+    -------------------------------------------------------- */
 
-    @media (max-width: 850px) {
+    @media (max-width: 750px) {
 
         .block-container {
-            padding-top: 1rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
         }
 
-        .cb-motivation {
-            margin-top: 32px;
+        .cb-menu-grid {
+            grid-template-columns: 1fr;
         }
 
         .cb-motivation-text {
-            font-size: 27px;
-            letter-spacing: 0.07em;
-        }
-
-        .cb-grid {
-            grid-template-columns: 1fr;
-            gap: 18px;
+            letter-spacing: 0.12em;
         }
 
         .cb-card {
-            min-height: 125px;
+            min-height: 115px;
             padding: 20px;
         }
 
-        .cb-icon {
-            width: 60px;
-            height: 60px;
-            flex-basis: 60px;
-            font-size: 25px;
-            margin-right: 17px;
-        }
-
         .cb-card-title {
-            font-size: 17px;
+            font-size: 18px;
         }
 
         .cb-card-subtitle {
             font-size: 13px;
         }
 
-        .cb-position-wrapper {
-            width: 94%;
-        }
-
         .cb-footer {
-            width: 94%;
             flex-direction: column;
-            gap: 12px;
+            gap: 15px;
             text-align: center;
         }
 
-        .cb-footer-line {
-            width: 94%;
+        .cb-footer-right {
+            text-align: center;
         }
-
     }
 
     </style>
@@ -715,14 +486,21 @@ st.markdown(
 
 
 # ============================================================
-# HINTERGRUNDLOGO
+# LOGO AUSGEBEN
 # ============================================================
 
-if logo_base64:
+if logo_bytes:
+    import base64
+
+    encoded_logo = base64.b64encode(logo_bytes).decode()
+
     st.markdown(
         f"""
-        <div class="cb-logo-background">
-            <img src="data:image/png;base64,{logo_base64}">
+        <div class="cb-logo">
+            <img
+                src="data:image/png;base64,{encoded_logo}"
+                alt="CountOrBreak Logo"
+            >
         </div>
         """,
         unsafe_allow_html=True,
@@ -730,7 +508,7 @@ if logo_base64:
 
 
 # ============================================================
-# OBERER BEREICH
+# GOLDENE TRENNLINIE
 # ============================================================
 
 st.markdown(
@@ -746,11 +524,11 @@ st.markdown(
 # ============================================================
 
 st.markdown(
-    f"""
+    """
     <div class="cb-motivation">
 
         <div class="cb-motivation-text">
-            {motivation}
+            TRADE DEN PLAN. NICHT DIE EMOTION.
         </div>
 
         <div class="cb-motivation-line"></div>
@@ -762,120 +540,109 @@ st.markdown(
 
 
 # ============================================================
-# MENÜ
+# HAUPTMENÜ
 # ============================================================
 
 st.markdown(
     """
-    <div class="cb-menu">
+    <div class="cb-menu-grid">
 
-        <div class="cb-grid">
 
-            <!-- JOURNAL -->
+        <div class="cb-card">
 
-            <div class="cb-card">
+            <div class="cb-icon">
+                ▤
+            </div>
 
-                <div class="cb-icon">
-                    ▤
+            <div class="cb-card-content">
+
+                <div class="cb-card-title">
+                    Journal
                 </div>
 
-                <div class="cb-card-content">
-
-                    <div class="cb-card-title">
-                        Journal
-                    </div>
-
-                    <div class="cb-card-subtitle">
-                        Deine Trades. Deine Geschichte.
-                    </div>
-
-                </div>
-
-                <div class="cb-arrow">
-                    ›
+                <div class="cb-card-subtitle">
+                    Deine Trades. Deine Geschichte.
                 </div>
 
             </div>
 
+            <div class="cb-arrow">
+                ›
+            </div>
 
-            <!-- AUSWERTUNGEN -->
+        </div>
 
-            <div class="cb-card">
 
-                <div class="cb-icon">
-                    ▥
+        <div class="cb-card">
+
+            <div class="cb-icon">
+                ▥
+            </div>
+
+            <div class="cb-card-content">
+
+                <div class="cb-card-title">
+                    Auswertungen
                 </div>
 
-                <div class="cb-card-content">
-
-                    <div class="cb-card-title">
-                        Auswertungen
-                    </div>
-
-                    <div class="cb-card-subtitle">
-                        Deine Performance. Deine Erkenntnisse.
-                    </div>
-
-                </div>
-
-                <div class="cb-arrow">
-                    ›
+                <div class="cb-card-subtitle">
+                    Deine Performance. Deine Erkenntnisse.
                 </div>
 
             </div>
 
+            <div class="cb-arrow">
+                ›
+            </div>
 
-            <!-- STRATEGIEN -->
+        </div>
 
-            <div class="cb-card">
 
-                <div class="cb-icon">
-                    ♞
+        <div class="cb-card">
+
+            <div class="cb-icon">
+                ♞
+            </div>
+
+            <div class="cb-card-content">
+
+                <div class="cb-card-title">
+                    Strategien
                 </div>
 
-                <div class="cb-card-content">
-
-                    <div class="cb-card-title">
-                        Strategien
-                    </div>
-
-                    <div class="cb-card-subtitle">
-                        Deine Setups. Dein Plan.
-                    </div>
-
-                </div>
-
-                <div class="cb-arrow">
-                    ›
+                <div class="cb-card-subtitle">
+                    Deine Setups. Dein Plan.
                 </div>
 
             </div>
 
+            <div class="cb-arrow">
+                ›
+            </div>
 
-            <!-- WISSEN -->
+        </div>
 
-            <div class="cb-card">
 
-                <div class="cb-icon">
-                    ◇
+        <div class="cb-card">
+
+            <div class="cb-icon">
+                ◇
+            </div>
+
+            <div class="cb-card-content">
+
+                <div class="cb-card-title">
+                    Wissen
                 </div>
 
-                <div class="cb-card-content">
-
-                    <div class="cb-card-title">
-                        Wissen
-                    </div>
-
-                    <div class="cb-card-subtitle">
-                        Lernen. Verstehen. Wachsen.
-                    </div>
-
+                <div class="cb-card-subtitle">
+                    Lernen. Verstehen. Wachsen.
                 </div>
 
-                <div class="cb-arrow">
-                    ›
-                </div>
+            </div>
 
+            <div class="cb-arrow">
+                ›
             </div>
 
         </div>
@@ -935,7 +702,7 @@ st.markdown(
         <div class="cb-footer-left">
 
             <span class="cb-footer-shield">
-                ◇
+                ♢
             </span>
 
             <span>
