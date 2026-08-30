@@ -1,11 +1,10 @@
 import streamlit as st
 from pathlib import Path
 import base64
-import random
 
 
 # ============================================================
-# COUNTORBREAK – STARTSEITE
+# COUNT OR BREAK – STARTSEITE
 # ============================================================
 
 st.set_page_config(
@@ -17,185 +16,107 @@ st.set_page_config(
 
 
 # ============================================================
-# MOTIVATIONSSPRÜCHE
+# LOGO
 # ============================================================
 
-motivation_quotes = [
-    "TRADE DEN PLAN. NICHT DIE EMOTION.",
-    "DEIN VORTEIL LIEGT IN DER DISZIPLIN.",
-    "RISIKO ZUERST. GEWINNE ZWEIT.",
-    "KONSEQUENZ SCHLÄGT INTUITION.",
-    "NICHT JEDER TRADE MUSS GEHANDELT WERDEN.",
-    "DEIN SYSTEM. DEINE REGELN. DEIN VORTEIL.",
-]
-
-motivation = random.choice(motivation_quotes)
+LOGO_PATH = Path("countorbreak_logo.png")
 
 
-# ============================================================
-# LOGO LADEN
-# ============================================================
+def get_logo_base64():
+    if LOGO_PATH.exists():
+        try:
+            return base64.b64encode(LOGO_PATH.read_bytes()).decode("utf-8")
+        except Exception:
+            return None
+    return None
 
-logo_path = Path("countorbreak_logo.png")
 
-logo_data = ""
-
-if logo_path.exists():
-    logo_bytes = logo_path.read_bytes()
-    logo_base64 = base64.b64encode(logo_bytes).decode("utf-8")
-    logo_data = f"data:image/png;base64,{logo_base64}"
+logo_base64 = get_logo_base64()
 
 
 # ============================================================
-# DESIGN / CSS
+# MOTIVATIONSSPRUCH
+# ============================================================
+
+motivation = "TRADE DEN PLAN. NICHT DIE EMOTION."
+
+
+# ============================================================
+# CSS
 # ============================================================
 
 st.markdown(
     """
     <style>
 
-    /* ========================================================
+    /* --------------------------------------------------------
        GRUNDLAYOUT
-       ======================================================== */
+       -------------------------------------------------------- */
 
-    html,
-    body,
-    [data-testid="stAppViewContainer"] {
-        background: #020202 !important;
-    }
-
-    [data-testid="stAppViewContainer"] {
+    .stApp {
         background:
             radial-gradient(
-                circle at 50% 38%,
-                rgba(150, 100, 20, 0.055) 0%,
-                rgba(0, 0, 0, 0) 38%
+                circle at 50% 35%,
+                rgba(70, 50, 15, 0.10) 0%,
+                rgba(0, 0, 0, 0) 42%
             ),
-            #020202 !important;
+            #050505;
+
+        color: #f3e3b0;
     }
 
-    [data-testid="stHeader"] {
-        background: transparent !important;
-        visibility: hidden !important;
-        height: 0 !important;
+
+    /* Streamlit Standard-Abstände entfernen */
+
+    .block-container {
+        max-width: 1450px;
+        padding-top: 2.2rem;
+        padding-bottom: 3rem;
     }
+
+
+    /* Header / Menü von Streamlit ausblenden */
 
     header {
-        visibility: hidden !important;
+        visibility: hidden;
     }
 
     footer {
-        visibility: hidden !important;
-    }
-
-    #MainMenu {
-        visibility: hidden !important;
-    }
-
-    .block-container {
-        max-width: 1450px !important;
-        padding-top: 22px !important;
-        padding-bottom: 45px !important;
-        padding-left: 45px !important;
-        padding-right: 45px !important;
-        position: relative;
-        z-index: 5;
+        visibility: hidden;
     }
 
 
-    /* ========================================================
-       FARBEN
-       ======================================================== */
+    /* --------------------------------------------------------
+       GOLD-FARBEN
+       -------------------------------------------------------- */
 
     :root {
-        --cb-gold-deep: #8f6410;
-        --cb-gold: #c9982b;
-        --cb-gold-light: #f0c85b;
-        --cb-gold-bright: #ffe6a0;
-        --cb-gold-soft: rgba(240, 200, 91, 0.72);
-        --cb-border: rgba(201, 152, 43, 0.70);
-        --cb-card: rgba(9, 9, 9, 0.91);
-        --cb-text: rgba(245, 245, 245, 0.76);
+        --gold-main: #d6a936;
+        --gold-light: #f5d778;
+        --gold-bright: #ffe49a;
+        --gold-dark: #8f6919;
+        --gold-border: rgba(214, 169, 54, 0.72);
+        --gold-soft: rgba(214, 169, 54, 0.16);
     }
 
 
-    /* ========================================================
-       HINTERGRUND-LOGO
-       ======================================================== */
-
-    .cb-background-logo {
-        position: fixed;
-        left: 50%;
-        top: 51%;
-        transform: translate(-50%, -50%);
-
-        width: min(1080px, 76vw);
-        height: auto;
-
-        opacity: 0.105;
-
-        z-index: 0;
-        pointer-events: none;
-        user-select: none;
-
-        filter:
-            drop-shadow(0 0 35px rgba(205, 150, 30, 0.10));
-    }
-
-
-    /* ========================================================
-       FALLBACK
-       ======================================================== */
-
-    .cb-logo-placeholder {
-        position: fixed;
-        left: 50%;
-        top: 51%;
-        transform: translate(-50%, -50%);
-
-        width: min(1000px, 72vw);
-        height: 520px;
-
-        opacity: 0.12;
-
-        z-index: 0;
-        pointer-events: none;
-
-        border: 1px solid rgba(201, 152, 43, 0.07);
-
-        box-shadow:
-            inset 0 0 120px rgba(170, 110, 15, 0.04);
-    }
-
-
-    /* ========================================================
-       INHALT
-       ======================================================== */
-
-    .cb-page {
-        position: relative;
-        z-index: 5;
-    }
-
-
-    /* ========================================================
-       OBERE LINIE
-       ======================================================== */
+    /* --------------------------------------------------------
+       OBERER TRENNER
+       -------------------------------------------------------- */
 
     .cb-top-line {
-        width: 100%;
+        width: 62%;
         height: 1px;
-
-        margin: 3px auto 34px auto;
+        margin: 0 auto 12px auto;
 
         background:
             linear-gradient(
                 90deg,
-                transparent 0%,
-                rgba(201, 152, 43, 0.10) 20%,
-                rgba(240, 200, 91, 0.75) 50%,
-                rgba(201, 152, 43, 0.10) 80%,
-                transparent 100%
+                transparent,
+                rgba(214,169,54,0.12),
+                rgba(214,169,54,0.85),
+                rgba(214,169,54,0.12),
+                transparent
             );
 
         position: relative;
@@ -203,35 +124,71 @@ st.markdown(
 
     .cb-top-line::after {
         content: "";
-
         position: absolute;
-
-        left: 50%;
-        top: 50%;
 
         width: 9px;
         height: 9px;
 
-        transform:
-            translate(-50%, -50%)
-            rotate(45deg);
+        left: 50%;
+        top: -4px;
 
-        background: var(--cb-gold-light);
+        transform: translateX(-50%) rotate(45deg);
+
+        background: #e5bd50;
 
         box-shadow:
-            0 0 13px rgba(240, 200, 91, 0.85);
+            0 0 10px rgba(214,169,54,0.65);
     }
 
 
-    /* ========================================================
+    /* --------------------------------------------------------
+       LOGO ALS HINTERGRUND
+       -------------------------------------------------------- */
+
+    .cb-logo-background {
+        position: fixed;
+
+        left: 50%;
+        top: 46%;
+
+        transform: translate(-50%, -50%);
+
+        width: min(820px, 70vw);
+
+        opacity: 0.075;
+
+        z-index: 0;
+
+        pointer-events: none;
+
+        filter:
+            grayscale(0.05)
+            contrast(1.05)
+            brightness(0.9);
+    }
+
+
+    .cb-logo-background img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+
+    /* --------------------------------------------------------
        MOTIVATION
-       ======================================================== */
+       -------------------------------------------------------- */
 
     .cb-motivation {
+        position: relative;
+        z-index: 2;
+
         text-align: center;
 
-        margin: 0 auto 30px auto;
+        margin-top: 46px;
+        margin-bottom: 48px;
     }
+
 
     .cb-motivation-text {
         font-family:
@@ -239,25 +196,24 @@ st.markdown(
             Helvetica,
             sans-serif;
 
-        font-size: clamp(30px, 3.35vw, 56px);
+        font-size: clamp(30px, 3.3vw, 55px);
 
         font-weight: 800;
 
-        letter-spacing: 0.105em;
+        letter-spacing: 0.095em;
 
-        line-height: 1.08;
+        line-height: 1.12;
 
-        color: var(--cb-gold-bright);
+        color: #f2ce67;
 
         text-shadow:
-            0 0 16px rgba(240, 200, 91, 0.20),
-            0 0 38px rgba(201, 152, 43, 0.10);
-
-        text-transform: uppercase;
+            0 0 12px rgba(214,169,54,0.18),
+            0 0 30px rgba(214,169,54,0.08);
     }
 
+
     .cb-motivation-line {
-        width: min(780px, 68%);
+        width: 46%;
 
         height: 1px;
 
@@ -267,259 +223,189 @@ st.markdown(
             linear-gradient(
                 90deg,
                 transparent,
-                rgba(201, 152, 43, 0.18),
-                rgba(240, 200, 91, 0.82),
-                rgba(201, 152, 43, 0.18),
+                rgba(214,169,54,0.70),
                 transparent
             );
 
         position: relative;
     }
 
+
     .cb-motivation-line::after {
         content: "";
 
         position: absolute;
 
+        width: 9px;
+        height: 9px;
+
+        background: #e4bd51;
+
         left: 50%;
-        top: 50%;
+        top: -4px;
 
-        width: 10px;
-        height: 10px;
-
-        transform:
-            translate(-50%, -50%)
-            rotate(45deg);
-
-        background: var(--cb-gold-light);
+        transform: translateX(-50%) rotate(45deg);
 
         box-shadow:
-            0 0 15px rgba(240, 200, 91, 0.80);
+            0 0 12px rgba(214,169,54,0.60);
     }
 
 
-    /* ========================================================
-       POSITIONSGRÖSSENRECHNER
-       ======================================================== */
-
-    .cb-position-wrapper {
-        width: min(960px, 76%);
-
-        margin: 0 auto 72px auto;
-    }
-
-    .cb-position-card {
-        min-height: 122px;
-
-        display: flex;
-        align-items: center;
-
-        padding: 22px 30px;
-
-        background:
-            linear-gradient(
-                135deg,
-                rgba(28, 22, 10, 0.97),
-                rgba(5, 5, 5, 0.97)
-            );
-
-        border: 1px solid var(--cb-border);
-
-        border-radius: 18px;
-
-        box-shadow:
-            0 0 0 1px rgba(240, 200, 91, 0.035),
-            0 15px 48px rgba(0, 0, 0, 0.62),
-            inset 0 0 42px rgba(201, 152, 43, 0.035);
-
-        transition:
-            transform 0.22s ease,
-            border-color 0.22s ease,
-            box-shadow 0.22s ease;
-    }
-
-    .cb-position-card:hover {
-        transform: translateY(-3px);
-
-        border-color: var(--cb-gold-light);
-
-        box-shadow:
-            0 0 30px rgba(201, 152, 43, 0.13),
-            0 20px 58px rgba(0, 0, 0, 0.68);
-    }
-
-    .cb-position-icon {
-        width: 68px;
-        height: 68px;
-
-        flex-shrink: 0;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        border: 1px solid var(--cb-border);
-
-        border-radius: 50%;
-
-        color: var(--cb-gold-bright);
-
-        font-size: 28px;
-
-        margin-right: 27px;
-
-        box-shadow:
-            inset 0 0 22px rgba(201, 152, 43, 0.05),
-            0 0 18px rgba(201, 152, 43, 0.035);
-    }
-
-    .cb-position-content {
-        flex: 1;
-    }
-
-    .cb-position-title {
-        color: var(--cb-gold-bright);
-
-        font-size: 22px;
-
-        font-weight: 800;
-
-        letter-spacing: 0.14em;
-
-        text-transform: uppercase;
-
-        margin-bottom: 8px;
-    }
-
-    .cb-position-subtitle {
-        color: rgba(245, 245, 245, 0.68);
-
-        font-size: 15px;
-
-        letter-spacing: 0.025em;
-    }
-
-    .cb-position-arrow {
-        color: var(--cb-gold-light);
-
-        font-size: 35px;
-
-        font-weight: 300;
-
-        margin-left: 25px;
-
-        transition: transform 0.2s ease;
-    }
-
-    .cb-position-card:hover .cb-position-arrow {
-        transform: translateX(5px);
-    }
-
-
-    /* ========================================================
+    /* --------------------------------------------------------
        MENÜ
-       ======================================================== */
+       -------------------------------------------------------- */
 
-    .cb-menu-grid {
-        display: grid;
+    .cb-menu {
+        position: relative;
+        z-index: 2;
 
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
-
-        gap: 28px;
-
-        width: 100%;
+        width: 94%;
+        max-width: 1280px;
 
         margin: 0 auto;
     }
 
 
-    /* ========================================================
+    .cb-grid {
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+
+        gap: 28px;
+
+        margin-top: 18px;
+    }
+
+
+    /* --------------------------------------------------------
        MENÜ-KARTEN
-       ======================================================== */
+       -------------------------------------------------------- */
 
     .cb-card {
-        min-height: 153px;
+        min-height: 145px;
 
         display: flex;
+
         align-items: center;
 
-        padding: 25px 30px;
+        position: relative;
+
+        padding: 26px 30px;
+
+        border-radius: 20px;
+
+        border: 1px solid var(--gold-border);
 
         background:
             linear-gradient(
                 135deg,
-                rgba(23, 18, 9, 0.95),
-                rgba(5, 5, 5, 0.97)
+                rgba(32,27,18,0.92),
+                rgba(8,8,8,0.96)
             );
 
-        border: 1px solid rgba(201, 152, 43, 0.68);
-
-        border-radius: 18px;
-
         box-shadow:
-            0 13px 40px rgba(0, 0, 0, 0.50),
-            inset 0 0 35px rgba(201, 152, 43, 0.025);
+            inset 0 0 30px rgba(214,169,54,0.035),
+            0 14px 35px rgba(0,0,0,0.35);
+
+        overflow: hidden;
 
         transition:
-            transform 0.22s ease,
-            border-color 0.22s ease,
-            box-shadow 0.22s ease;
+            transform 0.2s ease,
+            border-color 0.2s ease,
+            box-shadow 0.2s ease;
     }
+
+
+    .cb-card::before {
+        content: "";
+
+        position: absolute;
+
+        left: 0;
+        top: 0;
+
+        width: 45%;
+        height: 100%;
+
+        background:
+            radial-gradient(
+                circle at 0% 50%,
+                rgba(214,169,54,0.10),
+                transparent 68%
+            );
+
+        pointer-events: none;
+    }
+
 
     .cb-card:hover {
         transform: translateY(-3px);
 
-        border-color: var(--cb-gold-light);
+        border-color: rgba(245,215,120,0.92);
 
         box-shadow:
-            0 0 30px rgba(201, 152, 43, 0.12),
-            0 19px 52px rgba(0, 0, 0, 0.65);
+            inset 0 0 35px rgba(214,169,54,0.055),
+            0 18px 42px rgba(0,0,0,0.46),
+            0 0 22px rgba(214,169,54,0.08);
     }
 
 
-    /* ========================================================
-       PIKTOGRAMME
-       ======================================================== */
+    /* --------------------------------------------------------
+       PIKTOGRAMM
+       -------------------------------------------------------- */
 
     .cb-icon {
-        width: 68px;
-        height: 68px;
+        flex: 0 0 74px;
 
-        flex-shrink: 0;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        border: 1px solid rgba(201, 152, 43, 0.82);
+        width: 74px;
+        height: 74px;
 
         border-radius: 50%;
 
-        color: var(--cb-gold-bright);
+        border: 1px solid rgba(214,169,54,0.70);
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
 
         margin-right: 25px;
 
-        font-size: 27px;
+        font-size: 31px;
 
-        line-height: 1;
+        color: #e4bf5b;
+
+        background:
+            radial-gradient(
+                circle,
+                rgba(214,169,54,0.12),
+                rgba(0,0,0,0.05) 68%
+            );
 
         box-shadow:
-            inset 0 0 20px rgba(201, 152, 43, 0.045),
-            0 0 17px rgba(201, 152, 43, 0.025);
+            inset 0 0 18px rgba(214,169,54,0.055);
     }
 
 
-    /* ========================================================
-       KARTEN-TEXT
-       ======================================================== */
+    /* --------------------------------------------------------
+       TEXT
+       -------------------------------------------------------- */
 
     .cb-card-content {
+        position: relative;
+        z-index: 2;
+
         flex: 1;
     }
 
+
     .cb-card-title {
-        color: var(--cb-gold-bright);
+        color: #e7bf56;
+
+        font-family:
+            Arial,
+            Helvetica,
+            sans-serif;
 
         font-size: 21px;
 
@@ -532,192 +418,292 @@ st.markdown(
         margin-bottom: 9px;
     }
 
+
     .cb-card-subtitle {
-        color: rgba(245, 245, 245, 0.69);
+        color: rgba(238,231,214,0.72);
+
+        font-family:
+            Arial,
+            Helvetica,
+            sans-serif;
 
         font-size: 15px;
 
-        line-height: 1.45;
-
-        letter-spacing: 0.02em;
+        letter-spacing: 0.025em;
     }
 
+
+    /* --------------------------------------------------------
+       PFEIL
+       -------------------------------------------------------- */
+
     .cb-arrow {
-        color: var(--cb-gold-light);
+        color: #e4bd51;
 
-        font-size: 34px;
+        font-size: 35px;
 
-        font-weight: 300;
+        font-family:
+            Arial,
+            Helvetica,
+            sans-serif;
 
         margin-left: 20px;
 
-        transition: transform 0.2s ease;
-    }
-
-    .cb-card:hover .cb-arrow {
-        transform: translateX(5px);
+        line-height: 1;
     }
 
 
-    /* ========================================================
+    /* --------------------------------------------------------
+       POSITIONENSGRÖSSENRECHNER
+       -------------------------------------------------------- */
+
+    .cb-position-wrapper {
+        position: relative;
+
+        z-index: 2;
+
+        width: 70%;
+        max-width: 930px;
+
+        margin: 34px auto 0 auto;
+    }
+
+
+    .cb-position-card {
+        min-height: 122px;
+
+        display: flex;
+
+        align-items: center;
+
+        padding: 22px 30px;
+
+        border-radius: 19px;
+
+        border: 1px solid rgba(224,182,66,0.82);
+
+        background:
+            linear-gradient(
+                135deg,
+                rgba(31,26,17,0.94),
+                rgba(8,8,8,0.97)
+            );
+
+        box-shadow:
+            inset 0 0 30px rgba(214,169,54,0.045),
+            0 15px 38px rgba(0,0,0,0.36);
+    }
+
+
+    .cb-position-icon {
+        flex: 0 0 68px;
+
+        width: 68px;
+        height: 68px;
+
+        border-radius: 50%;
+
+        border: 1px solid rgba(214,169,54,0.72);
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        margin-right: 23px;
+
+        font-size: 29px;
+
+        color: #e8c35f;
+
+        background:
+            radial-gradient(
+                circle,
+                rgba(214,169,54,0.13),
+                transparent 70%
+            );
+    }
+
+
+    .cb-position-content {
+        flex: 1;
+    }
+
+
+    .cb-position-title {
+        color: #e8c35f;
+
+        font-size: 20px;
+
+        font-weight: 800;
+
+        letter-spacing: 0.13em;
+
+        text-transform: uppercase;
+
+        margin-bottom: 7px;
+    }
+
+
+    .cb-position-subtitle {
+        color: rgba(238,231,214,0.68);
+
+        font-size: 14px;
+
+        letter-spacing: 0.025em;
+    }
+
+
+    .cb-position-arrow {
+        color: #e4bd51;
+
+        font-size: 34px;
+
+        margin-left: 20px;
+    }
+
+
+    /* --------------------------------------------------------
        FOOTER
-       ======================================================== */
+       -------------------------------------------------------- */
 
     .cb-footer {
+        position: relative;
+
+        z-index: 2;
+
+        width: 88%;
+
+        margin: 52px auto 0 auto;
+
         display: flex;
 
         justify-content: space-between;
 
         align-items: center;
 
-        margin-top: 65px;
+        color: rgba(230,210,160,0.45);
 
-        padding-top: 22px;
+        font-size: 11px;
 
-        border-top: 1px solid rgba(201, 152, 43, 0.19);
-
-        color: rgba(235, 235, 235, 0.49);
-
-        font-size: 12px;
-
-        letter-spacing: 0.09em;
+        letter-spacing: 0.12em;
 
         text-transform: uppercase;
     }
+
 
     .cb-footer-left {
         display: flex;
 
         align-items: center;
 
-        gap: 12px;
-    }
-
-    .cb-footer-symbol {
-        color: var(--cb-gold-light);
-
-        font-size: 20px;
-    }
-
-    .cb-footer-right {
-        text-align: right;
+        gap: 9px;
     }
 
 
-    /* ========================================================
+    .cb-footer-shield {
+        color: #d8ae40;
+
+        font-size: 15px;
+    }
+
+
+    .cb-footer-line {
+        position: relative;
+
+        z-index: 2;
+
+        width: 88%;
+
+        height: 1px;
+
+        margin: 14px auto 0 auto;
+
+        background:
+            linear-gradient(
+                90deg,
+                transparent,
+                rgba(214,169,54,0.22),
+                transparent
+            );
+    }
+
+
+    /* --------------------------------------------------------
+       STREAMLIT BUTTONS
+       -------------------------------------------------------- */
+
+    div.stButton > button {
+        background: transparent !important;
+
+        border: none !important;
+
+        color: transparent !important;
+
+        width: 100% !important;
+
+        height: 100% !important;
+    }
+
+
+    /* --------------------------------------------------------
        MOBILE
-       ======================================================== */
+       -------------------------------------------------------- */
 
-    @media (max-width: 900px) {
+    @media (max-width: 850px) {
 
         .block-container {
-            padding-left: 20px !important;
-            padding-right: 20px !important;
+            padding-top: 1rem;
         }
 
-        .cb-menu-grid {
+        .cb-motivation {
+            margin-top: 32px;
+        }
+
+        .cb-motivation-text {
+            font-size: 27px;
+            letter-spacing: 0.07em;
+        }
+
+        .cb-grid {
             grid-template-columns: 1fr;
-        }
-
-        .cb-position-wrapper {
-            width: 100%;
-        }
-
-        .cb-motivation-text {
-            font-size: 30px;
-        }
-
-        .cb-footer {
-            flex-direction: column;
-
-            gap: 17px;
-
-            text-align: center;
-        }
-
-        .cb-footer-right {
-            text-align: center;
-        }
-
-    }
-
-
-    @media (max-width: 600px) {
-
-        .block-container {
-            padding-top: 15px !important;
-        }
-
-        .cb-top-line {
-            margin-bottom: 27px;
-        }
-
-        .cb-motivation-text {
-            font-size: 25px;
-
-            letter-spacing: 0.075em;
-        }
-
-        .cb-motivation-line {
-            width: 82%;
-        }
-
-        .cb-position-wrapper {
-            margin-bottom: 45px;
-        }
-
-        .cb-position-card {
-            min-height: 105px;
-
-            padding: 18px;
-        }
-
-        .cb-position-icon {
-            width: 54px;
-            height: 54px;
-
-            margin-right: 15px;
-
-            font-size: 22px;
-        }
-
-        .cb-position-title {
-            font-size: 16px;
-        }
-
-        .cb-position-subtitle {
-            font-size: 12px;
+            gap: 18px;
         }
 
         .cb-card {
             min-height: 125px;
-
-            padding: 18px;
+            padding: 20px;
         }
 
         .cb-icon {
-            width: 54px;
-            height: 54px;
-
-            margin-right: 15px;
-
-            font-size: 22px;
+            width: 60px;
+            height: 60px;
+            flex-basis: 60px;
+            font-size: 25px;
+            margin-right: 17px;
         }
 
         .cb-card-title {
-            font-size: 16px;
+            font-size: 17px;
         }
 
         .cb-card-subtitle {
-            font-size: 12px;
+            font-size: 13px;
         }
 
-        .cb-background-logo {
-            width: 125vw;
+        .cb-position-wrapper {
+            width: 94%;
         }
 
         .cb-footer {
-            margin-top: 45px;
+            width: 94%;
+            flex-direction: column;
+            gap: 12px;
+            text-align: center;
+        }
+
+        .cb-footer-line {
+            width: 94%;
         }
 
     }
@@ -729,90 +715,61 @@ st.markdown(
 
 
 # ============================================================
-# HINTERGRUND-LOGO AUSGEBEN
+# HINTERGRUNDLOGO
 # ============================================================
 
-if logo_data:
+if logo_base64:
     st.markdown(
         f"""
-        <img
-            class="cb-background-logo"
-            src="{logo_data}"
-            alt=""
-        >
-        """,
-        unsafe_allow_html=True,
-    )
-else:
-    st.markdown(
-        """
-        <div class="cb-logo-placeholder"></div>
+        <div class="cb-logo-background">
+            <img src="data:image/png;base64,{logo_base64}">
+        </div>
         """,
         unsafe_allow_html=True,
     )
 
 
 # ============================================================
-# STARTSEITE
+# OBERER BEREICH
+# ============================================================
+
+st.markdown(
+    """
+    <div class="cb-top-line"></div>
+    """,
+    unsafe_allow_html=True,
+)
+
+
+# ============================================================
+# MOTIVATION
 # ============================================================
 
 st.markdown(
     f"""
-    <div class="cb-page">
+    <div class="cb-motivation">
 
-        <!-- OBERE GOLDLINIE -->
-
-        <div class="cb-top-line"></div>
-
-
-        <!-- MOTIVATION -->
-
-        <div class="cb-motivation">
-
-            <div class="cb-motivation-text">
-                {motivation}
-            </div>
-
-            <div class="cb-motivation-line"></div>
-
+        <div class="cb-motivation-text">
+            {motivation}
         </div>
 
+        <div class="cb-motivation-line"></div>
 
-        <!-- POSITIONSGRÖSSENRECHNER -->
-
-        <div class="cb-position-wrapper">
-
-            <div class="cb-position-card">
-
-                <div class="cb-position-icon">
-                    ▦
-                </div>
-
-                <div class="cb-position-content">
-
-                    <div class="cb-position-title">
-                        Positionsgrößenrechner
-                    </div>
-
-                    <div class="cb-position-subtitle">
-                        Berechne dein Risiko. Kontrolliere dein Handeln.
-                    </div>
-
-                </div>
-
-                <div class="cb-position-arrow">
-                    ›
-                </div>
-
-            </div>
-
-        </div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
 
-        <!-- HAUPTMENÜ -->
+# ============================================================
+# MENÜ
+# ============================================================
 
-        <div class="cb-menu-grid">
+st.markdown(
+    """
+    <div class="cb-menu">
 
+        <div class="cb-grid">
 
             <!-- JOURNAL -->
 
@@ -921,38 +878,81 @@ st.markdown(
 
             </div>
 
-
         </div>
-
-
-        <!-- FOOTER -->
-
-        <div class="cb-footer">
-
-            <div class="cb-footer-left">
-
-                <span class="cb-footer-symbol">
-                    ◈
-                </span>
-
-                <span>
-                    Risk first. Profits second.
-                </span>
-
-            </div>
-
-            <div class="cb-footer-right">
-                Trading Journal
-                &nbsp; • &nbsp;
-                Risk Management
-                &nbsp; • &nbsp;
-                Performance
-            </div>
-
-        </div>
-
 
     </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+
+# ============================================================
+# POSITIONSGRÖSSENRECHNER
+# ============================================================
+
+st.markdown(
+    """
+    <div class="cb-position-wrapper">
+
+        <div class="cb-position-card">
+
+            <div class="cb-position-icon">
+                ▦
+            </div>
+
+            <div class="cb-position-content">
+
+                <div class="cb-position-title">
+                    Positionsgrößenrechner
+                </div>
+
+                <div class="cb-position-subtitle">
+                    Berechne dein Risiko. Kontrolliere dein Handeln.
+                </div>
+
+            </div>
+
+            <div class="cb-position-arrow">
+                ›
+            </div>
+
+        </div>
+
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+
+# ============================================================
+# FOOTER
+# ============================================================
+
+st.markdown(
+    """
+    <div class="cb-footer">
+
+        <div class="cb-footer-left">
+
+            <span class="cb-footer-shield">
+                ◇
+            </span>
+
+            <span>
+                Risk first. Profits second.
+            </span>
+
+        </div>
+
+        <div class="cb-footer-right">
+            Trading Journal &nbsp; • &nbsp;
+            Risk Management &nbsp; • &nbsp;
+            Performance
+        </div>
+
+    </div>
+
+    <div class="cb-footer-line"></div>
     """,
     unsafe_allow_html=True,
 )
