@@ -77,17 +77,33 @@ st.markdown(
     <style>
 
     /* ========================================================
-       GOLD-FARBPALETTE
+       COUNT OR BREAK – FARBPALETTE
        ======================================================== */
 
     :root {
-        --cb-gold: #d5a84f;
-        --cb-gold-light: #e6c271;
-        --cb-gold-bright: #f0d28a;
-        --cb-gold-dark: #8f641d;
-        --cb-gold-border: #b88932;
-        --cb-text: #f0e5ce;
-        --cb-subtext: #a9a399;
+
+        /* Warmes Champagner-Gold passend zu Logo & Icons */
+        --cb-gold: #C9A35A;
+
+        /* Heller Goldton für Überschriften */
+        --cb-gold-light: #D8B66A;
+
+        /* Highlight / Hover */
+        --cb-gold-bright: #E8CB87;
+
+        /* Dunkler Goldton */
+        --cb-gold-dark: #77531B;
+
+        /* Gold für Rahmen */
+        --cb-gold-border: #A77D35;
+
+        /* Haupttext */
+        --cb-text: #EFE4CC;
+
+        /* Beschreibung */
+        --cb-subtext: #A9A399;
+
+        /* Hintergrund */
         --cb-background: #040404;
     }
 
@@ -97,17 +113,20 @@ st.markdown(
        ======================================================== */
 
     .stApp {
+
         background:
             radial-gradient(
                 circle at 50% 0%,
-                rgba(212, 164, 65, 0.10),
+                rgba(201, 163, 90, 0.095),
                 transparent 34%
             ),
+
             radial-gradient(
                 circle at 50% 45%,
-                rgba(151, 106, 30, 0.035),
+                rgba(126, 86, 25, 0.035),
                 transparent 52%
             ),
+
             #040404;
 
         color: #f4efe4;
@@ -115,6 +134,7 @@ st.markdown(
 
 
     .block-container {
+
         max-width: 1450px;
 
         padding-top: 1.5rem;
@@ -123,7 +143,7 @@ st.markdown(
 
 
     /* ========================================================
-       STREAMLIT ELEMENTE AUSBLENDEN
+       STREAMLIT UI AUSBLENDEN
        ======================================================== */
 
     #MainMenu {
@@ -144,6 +164,7 @@ st.markdown(
        ======================================================== */
 
     .cb-logo {
+
         width: 100%;
 
         display: flex;
@@ -156,7 +177,9 @@ st.markdown(
 
 
     .cb-logo img {
+
         width: min(540px, 82%);
+
         max-height: 280px;
 
         object-fit: contain;
@@ -164,7 +187,7 @@ st.markdown(
         filter:
             drop-shadow(
                 0 0 15px
-                rgba(214, 166, 70, 0.12)
+                rgba(201, 163, 90, 0.12)
             );
     }
 
@@ -174,7 +197,9 @@ st.markdown(
        ======================================================== */
 
     .cb-top-line {
+
         width: 100%;
+
         height: 1px;
 
         margin: 0 auto 40px auto;
@@ -183,19 +208,19 @@ st.markdown(
             linear-gradient(
                 90deg,
                 transparent 0%,
-                #60400d 15%,
-                #95691e 30%,
-                #d0a246 44%,
-                #edc56f 50%,
-                #d0a246 56%,
-                #95691e 70%,
-                #60400d 85%,
+                #594016 15%,
+                #806024 30%,
+                #B48A42 43%,
+                #D8B66A 50%,
+                #B48A42 57%,
+                #806024 70%,
+                #594016 85%,
                 transparent 100%
             );
 
         box-shadow:
-            0 0 12px
-            rgba(213, 169, 76, 0.40);
+            0 0 10px
+            rgba(201, 163, 90, 0.34);
     }
 
 
@@ -204,6 +229,7 @@ st.markdown(
        ======================================================== */
 
     .cb-motivation {
+
         width: 100%;
 
         text-align: center;
@@ -213,9 +239,17 @@ st.markdown(
 
 
     .cb-motivation-text {
+
         color: var(--cb-gold-light);
 
+        /*
+        Eleganter, logoähnlicher Serifenschnitt.
+        Mehr klassische Luxury-/Premium-Anmutung.
+        */
+
         font-family:
+            "Baskerville",
+            "Baskerville Old Face",
             "Palatino Linotype",
             "Book Antiqua",
             Palatino,
@@ -224,20 +258,23 @@ st.markdown(
 
         font-size: clamp(18px, 2vw, 27px);
 
-        font-weight: 600;
+        font-weight: 500;
 
-        letter-spacing: 0.16em;
+        letter-spacing: 0.20em;
+
+        line-height: 1.35;
 
         text-shadow:
             0 0 7px
-            rgba(213, 168, 79, 0.38),
+            rgba(201, 163, 90, 0.28),
 
             0 0 18px
-            rgba(213, 168, 79, 0.15);
+            rgba(201, 163, 90, 0.10);
     }
 
 
     .cb-motivation-line {
+
         width: min(600px, 72%);
 
         height: 1px;
@@ -248,15 +285,15 @@ st.markdown(
             linear-gradient(
                 90deg,
                 transparent,
-                var(--cb-gold-dark),
-                var(--cb-gold-light),
-                var(--cb-gold-dark),
+                #806024,
+                #D8B66A,
+                #806024,
                 transparent
             );
 
         box-shadow:
-            0 0 8px
-            rgba(211, 164, 65, 0.25);
+            0 0 7px
+            rgba(201, 163, 90, 0.22);
     }
 
 
@@ -265,6 +302,7 @@ st.markdown(
        ======================================================== */
 
     .cb-menu-grid {
+
         width: min(1120px, 94%);
 
         margin: 0 auto;
@@ -283,11 +321,13 @@ st.markdown(
        ======================================================== */
 
     .cb-card {
+
         min-height: 155px;
 
         box-sizing: border-box;
 
         display: flex;
+
         align-items: center;
 
         padding: 24px 28px;
@@ -301,34 +341,44 @@ st.markdown(
 
         border:
             1px solid
-            rgba(184, 137, 50, 0.78);
+            rgba(167, 125, 53, 0.76);
 
         border-radius: 11px;
 
         box-shadow:
+
             inset
             0 0 0 1px
-            rgba(240, 194, 102, 0.035),
+            rgba(232, 203, 135, 0.025),
 
             inset
             0 0 25px
-            rgba(192, 143, 46, 0.035),
+            rgba(192, 143, 46, 0.030),
 
             0 0 9px
-            rgba(183, 136, 46, 0.12),
+            rgba(167, 125, 53, 0.10),
 
             0 10px 32px
             rgba(0, 0, 0, 0.48);
 
         transition:
+
             transform 0.22s ease,
+
             border-color 0.22s ease,
+
             box-shadow 0.22s ease,
+
             background 0.22s ease;
     }
 
 
+    /* ========================================================
+       MENÜ-KARTEN HOVER
+       ======================================================== */
+
     .cb-card:hover {
+
         transform: translateY(-4px);
 
         border-color:
@@ -342,16 +392,17 @@ st.markdown(
             );
 
         box-shadow:
+
             inset
             0 0 0 1px
-            rgba(255, 218, 130, 0.055),
+            rgba(255, 218, 130, 0.045),
 
             inset
             0 0 30px
-            rgba(192, 143, 46, 0.055),
+            rgba(192, 143, 46, 0.050),
 
             0 0 15px
-            rgba(204, 157, 64, 0.22),
+            rgba(201, 163, 90, 0.20),
 
             0 15px 38px
             rgba(0, 0, 0, 0.60);
@@ -363,7 +414,9 @@ st.markdown(
        ======================================================== */
 
     .cb-icon-wrapper {
+
         width: 88px;
+
         min-width: 88px;
 
         height: 88px;
@@ -371,6 +424,7 @@ st.markdown(
         display: flex;
 
         align-items: center;
+
         justify-content: center;
 
         margin-right: 25px;
@@ -378,7 +432,9 @@ st.markdown(
 
 
     .cb-icon-wrapper img {
+
         width: 88px;
+
         height: 88px;
 
         object-fit: contain;
@@ -388,20 +444,23 @@ st.markdown(
         filter:
             drop-shadow(
                 0 0 8px
-                rgba(214, 166, 70, 0.18)
+                rgba(201, 163, 90, 0.18)
             );
 
         transition:
             filter 0.22s ease,
+
             transform 0.22s ease;
     }
 
 
-    .cb-card:hover .cb-icon-wrapper img {
+    .cb-card:hover
+    .cb-icon-wrapper img {
+
         filter:
             drop-shadow(
-                0 0 11px
-                rgba(225, 178, 78, 0.32)
+                0 0 12px
+                rgba(220, 181, 91, 0.32)
             );
 
         transform: scale(1.035);
@@ -409,20 +468,29 @@ st.markdown(
 
 
     /* ========================================================
-       KARTEN-TEXT
+       KARTEN-INHALT
        ======================================================== */
 
     .cb-card-content {
+
         flex: 1;
 
         min-width: 0;
     }
 
 
+    /* ========================================================
+       MENÜ-ÜBERSCHRIFTEN
+       ======================================================== */
+
     .cb-card-title {
+
         color: var(--cb-gold-light);
 
         font-family:
+
+            "Baskerville",
+            "Baskerville Old Face",
             "Palatino Linotype",
             "Book Antiqua",
             Palatino,
@@ -431,19 +499,26 @@ st.markdown(
 
         font-size: 25px;
 
-        font-weight: 600;
+        font-weight: 500;
 
-        letter-spacing: 0.035em;
+        letter-spacing: 0.045em;
+
+        line-height: 1.2;
 
         margin-bottom: 8px;
 
         text-shadow:
             0 0 7px
-            rgba(213, 168, 79, 0.18);
+            rgba(201, 163, 90, 0.18);
     }
 
 
+    /* ========================================================
+       BESCHREIBUNGEN
+       ======================================================== */
+
     .cb-card-subtitle {
+
         color: var(--cb-subtext);
 
         font-family:
@@ -462,6 +537,7 @@ st.markdown(
        ======================================================== */
 
     .cb-arrow {
+
         color: var(--cb-gold);
 
         font-family:
@@ -476,13 +552,17 @@ st.markdown(
         margin-left: 18px;
 
         transition:
+
             transform 0.22s ease,
+
             color 0.22s ease,
+
             text-shadow 0.22s ease;
     }
 
 
     .cb-card:hover .cb-arrow {
+
         color: var(--cb-gold-bright);
 
         transform: translateX(5px);
@@ -498,6 +578,7 @@ st.markdown(
        ======================================================== */
 
     .cb-position-wrapper {
+
         width: min(1120px, 94%);
 
         margin: 34px auto 0 auto;
@@ -505,6 +586,7 @@ st.markdown(
 
 
     .cb-position-card {
+
         width: 100%;
 
         min-height: 175px;
@@ -528,21 +610,22 @@ st.markdown(
 
         border:
             1px solid
-            rgba(190, 145, 54, 0.88);
+            rgba(184, 143, 58, 0.88);
 
         border-radius: 11px;
 
         box-shadow:
+
             inset
             0 0 0 1px
-            rgba(240, 194, 102, 0.045),
+            rgba(240, 194, 102, 0.04),
 
             inset
             0 0 30px
-            rgba(201, 151, 47, 0.045),
+            rgba(201, 151, 47, 0.04),
 
             0 0 12px
-            rgba(190, 139, 39, 0.13),
+            rgba(190, 139, 39, 0.12),
 
             0 12px 38px
             rgba(0, 0, 0, 0.52);
@@ -550,18 +633,23 @@ st.markdown(
         cursor: pointer;
 
         transition:
+
             transform 0.22s ease,
+
             border-color 0.22s ease,
+
             box-shadow 0.22s ease,
+
             background 0.22s ease;
     }
 
 
     /* ========================================================
-       HOVER-EFFEKT RECHNER
+       RECHNER HOVER
        ======================================================== */
 
     .cb-position-card:hover {
+
         transform: translateY(-4px);
 
         border-color:
@@ -575,16 +663,17 @@ st.markdown(
             );
 
         box-shadow:
+
             inset
             0 0 0 1px
-            rgba(255, 218, 130, 0.06),
+            rgba(255, 218, 130, 0.055),
 
             inset
             0 0 35px
-            rgba(201, 151, 47, 0.07),
+            rgba(201, 151, 47, 0.065),
 
             0 0 19px
-            rgba(210, 164, 68, 0.25),
+            rgba(210, 164, 68, 0.24),
 
             0 16px 42px
             rgba(0, 0, 0, 0.62);
@@ -596,7 +685,9 @@ st.markdown(
        ======================================================== */
 
     .cb-position-icon {
+
         width: 90px;
+
         min-width: 90px;
 
         height: 90px;
@@ -604,6 +695,7 @@ st.markdown(
         display: flex;
 
         align-items: center;
+
         justify-content: center;
 
         margin-right: 28px;
@@ -611,7 +703,9 @@ st.markdown(
 
 
     .cb-position-icon img {
+
         width: 90px;
+
         height: 90px;
 
         object-fit: contain;
@@ -625,12 +719,16 @@ st.markdown(
             );
 
         transition:
+
             transform 0.22s ease,
+
             filter 0.22s ease;
     }
 
 
-    .cb-position-card:hover .cb-position-icon img {
+    .cb-position-card:hover
+    .cb-position-icon img {
+
         transform: scale(1.05);
 
         filter:
@@ -642,18 +740,17 @@ st.markdown(
 
 
     /* ========================================================
-       RECHNER TEXT
+       RECHNER TITEL
        ======================================================== */
 
-    .cb-position-content {
-        text-align: center;
-    }
-
-
     .cb-position-title {
+
         color: var(--cb-gold-light);
 
         font-family:
+
+            "Baskerville",
+            "Baskerville Old Face",
             "Palatino Linotype",
             "Book Antiqua",
             Palatino,
@@ -662,19 +759,20 @@ st.markdown(
 
         font-size: 27px;
 
-        font-weight: 600;
+        font-weight: 500;
 
-        letter-spacing: 0.035em;
+        letter-spacing: 0.045em;
 
         margin-bottom: 9px;
 
         text-shadow:
             0 0 8px
-            rgba(213, 168, 79, 0.20);
+            rgba(201, 163, 90, 0.20);
     }
 
 
     .cb-position-subtitle {
+
         color: #b2aa9d;
 
         font-family:
@@ -693,6 +791,7 @@ st.markdown(
        ======================================================== */
 
     .cb-footer-wrapper {
+
         width: min(1120px, 94%);
 
         margin: 38px auto 0 auto;
@@ -700,6 +799,7 @@ st.markdown(
 
 
     .cb-footer {
+
         padding-top: 18px;
 
         border-top:
@@ -726,6 +826,7 @@ st.markdown(
 
 
     .cb-footer-gold {
+
         color: var(--cb-gold);
 
         font-size: 17px;
@@ -733,6 +834,7 @@ st.markdown(
 
 
     .cb-footer-right {
+
         text-align: right;
     }
 
@@ -744,27 +846,33 @@ st.markdown(
     @media (max-width: 750px) {
 
         .block-container {
+
             padding-left: 1rem;
+
             padding-right: 1rem;
         }
 
 
         .cb-logo img {
+
             width: 92%;
         }
 
 
         .cb-top-line {
+
             margin-bottom: 30px;
         }
 
 
         .cb-motivation {
+
             margin-bottom: 32px;
         }
 
 
         .cb-motivation-text {
+
             font-size: 17px;
 
             letter-spacing: 0.08em;
@@ -772,6 +880,7 @@ st.markdown(
 
 
         .cb-menu-grid {
+
             grid-template-columns: 1fr;
 
             width: 94%;
@@ -779,6 +888,7 @@ st.markdown(
 
 
         .cb-card {
+
             min-height: 125px;
 
             padding: 18px;
@@ -786,7 +896,9 @@ st.markdown(
 
 
         .cb-icon-wrapper {
+
             width: 68px;
+
             min-width: 68px;
 
             height: 68px;
@@ -796,22 +908,27 @@ st.markdown(
 
 
         .cb-icon-wrapper img {
+
             width: 68px;
+
             height: 68px;
         }
 
 
         .cb-card-title {
+
             font-size: 19px;
         }
 
 
         .cb-card-subtitle {
+
             font-size: 13px;
         }
 
 
         .cb-arrow {
+
             font-size: 32px;
 
             margin-left: 8px;
@@ -819,6 +936,7 @@ st.markdown(
 
 
         .cb-position-wrapper {
+
             width: 94%;
 
             margin-top: 24px;
@@ -826,6 +944,7 @@ st.markdown(
 
 
         .cb-position-card {
+
             min-height: 145px;
 
             padding: 20px;
@@ -833,7 +952,9 @@ st.markdown(
 
 
         .cb-position-icon {
+
             width: 65px;
+
             min-width: 65px;
 
             height: 65px;
@@ -843,27 +964,33 @@ st.markdown(
 
 
         .cb-position-icon img {
+
             width: 65px;
+
             height: 65px;
         }
 
 
         .cb-position-title {
+
             font-size: 20px;
         }
 
 
         .cb-position-subtitle {
+
             font-size: 13px;
         }
 
 
         .cb-footer-wrapper {
+
             width: 94%;
         }
 
 
         .cb-footer {
+
             flex-direction: column;
 
             gap: 13px;
@@ -873,6 +1000,7 @@ st.markdown(
 
 
         .cb-footer-right {
+
             text-align: center;
         }
 
@@ -916,7 +1044,7 @@ st.html(
 
 
 # ============================================================
-# MOTIVATION
+# MOTIVATIONSSPRUCH
 # ============================================================
 
 st.html(
@@ -935,7 +1063,7 @@ st.html(
 
 
 # ============================================================
-# PIKTOGRAMM-BEREICHE
+# PIKTOGRAMME VORBEREITEN
 # ============================================================
 
 journal_html = ""
@@ -1011,7 +1139,9 @@ st.html(
     <div class="cb-menu-grid">
 
 
-        <!-- JOURNAL -->
+        <!-- ==================================================
+             JOURNAL
+             ================================================== -->
 
         <div class="cb-card">
 
@@ -1036,7 +1166,9 @@ st.html(
         </div>
 
 
-        <!-- AUSWERTUNGEN -->
+        <!-- ==================================================
+             AUSWERTUNGEN
+             ================================================== -->
 
         <div class="cb-card">
 
@@ -1061,7 +1193,9 @@ st.html(
         </div>
 
 
-        <!-- STRATEGIEN -->
+        <!-- ==================================================
+             STRATEGIEN
+             ================================================== -->
 
         <div class="cb-card">
 
@@ -1086,7 +1220,9 @@ st.html(
         </div>
 
 
-        <!-- WISSEN -->
+        <!-- ==================================================
+             WISSEN
+             ================================================== -->
 
         <div class="cb-card">
 
