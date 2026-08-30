@@ -1,6 +1,11 @@
 import streamlit as st
 from pathlib import Path
+import base64
 
+
+# ============================================================
+# COUNT OR BREAK – STARTSEITE
+# ============================================================
 
 st.set_page_config(
     page_title="CountOrBreak",
@@ -11,10 +16,18 @@ st.set_page_config(
 
 
 # ============================================================
+# LOGO
+# ============================================================
+
+logo_path = Path("countorbreak_logo.png")
+
+
+# ============================================================
 # DESIGN
 # ============================================================
 
-st.markdown("""
+st.markdown(
+    """
 <style>
 
 .stApp {
@@ -41,26 +54,30 @@ footer {
 }
 
 
-/* LOGO */
+/* ============================================================
+   LOGO
+   ============================================================ */
 
-.logo-container {
+.cb-logo {
     text-align: center;
     margin-top: 10px;
     margin-bottom: 35px;
 }
 
-.logo-container img {
+.cb-logo img {
     width: min(520px, 80%);
     max-height: 260px;
     object-fit: contain;
 }
 
 
-/* GOLDENE LINIE */
+/* ============================================================
+   GOLDENE LINIE
+   ============================================================ */
 
-.gold-line {
-    height: 1px;
+.cb-gold-line {
     width: 100%;
+    height: 1px;
     margin-bottom: 40px;
 
     background: linear-gradient(
@@ -71,25 +88,30 @@ footer {
         #8f641b,
         transparent
     );
+
+    box-shadow: 0 0 12px rgba(212, 160, 60, 0.35);
 }
 
 
-/* MOTIVATION */
+/* ============================================================
+   MOTIVATION
+   ============================================================ */
 
-.motivation {
+.cb-motivation {
     text-align: center;
     margin-bottom: 50px;
 }
 
-.motivation-text {
+.cb-motivation-text {
     color: #d8b66a;
     font-family: Arial, Helvetica, sans-serif;
     font-size: clamp(18px, 2vw, 27px);
     font-weight: 500;
     letter-spacing: 0.18em;
+    text-shadow: 0 0 10px rgba(212, 160, 60, 0.22);
 }
 
-.motivation-line {
+.cb-motivation-line {
     width: min(600px, 75%);
     height: 1px;
     margin: 18px auto 0 auto;
@@ -105,50 +127,59 @@ footer {
 }
 
 
-/* KARTEN */
+/* ============================================================
+   MENÜ
+   ============================================================ */
 
-.card {
+.cb-card {
     background: linear-gradient(
         135deg,
         #161616,
         #090909
     );
 
-    border: 1px solid #8f641b;
+    border: 1px solid rgba(172, 126, 39, 0.65);
     border-radius: 10px;
 
-    padding: 25px;
+    padding: 25px 28px;
 
     min-height: 135px;
 
     margin-bottom: 24px;
 
     box-sizing: border-box;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 215, 120, 0.035),
+        0 8px 30px rgba(0, 0, 0, 0.35);
 }
 
-.icon {
+.cb-card-icon {
     color: #d7ad54;
     font-size: 27px;
     margin-bottom: 12px;
 }
 
-.title {
+.cb-card-title {
     color: #f0e7d1;
     font-size: 21px;
     font-weight: 600;
+    letter-spacing: 0.04em;
     margin-bottom: 8px;
 }
 
-.subtitle {
+.cb-card-subtitle {
     color: #9c978c;
     font-size: 14px;
     line-height: 1.5;
 }
 
 
-/* RECHNER */
+/* ============================================================
+   POSITIONSGRÖSSENRECHNER
+   ============================================================ */
 
-.calculator {
+.cb-calculator {
     background: linear-gradient(
         135deg,
         #1e180c,
@@ -158,44 +189,63 @@ footer {
     border: 1px solid #a97924;
     border-radius: 10px;
 
-    padding: 25px;
+    padding: 25px 28px;
 
     margin-top: 10px;
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.45),
+        inset 0 0 25px rgba(194, 148, 58, 0.04);
 }
 
-.calculator-title {
+.cb-calculator-icon {
+    color: #ddb45d;
+    font-size: 27px;
+    margin-bottom: 12px;
+}
+
+.cb-calculator-title {
     color: #e5c275;
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 7px;
 }
 
-.calculator-subtitle {
+.cb-calculator-subtitle {
     color: #a7a196;
     font-size: 14px;
 }
 
 
-/* FOOTER */
+/* ============================================================
+   FOOTER
+   ============================================================ */
 
-.footer {
+.cb-footer {
     margin-top: 50px;
     padding-top: 15px;
 
-    border-top: 1px solid #4d3a18;
+    border-top: 1px solid rgba(170, 125, 38, 0.35);
 
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     color: #77736a;
 
     font-size: 12px;
+    letter-spacing: 0.05em;
 }
 
-.footer-gold {
+.cb-footer-gold {
     color: #b78b38;
 }
 
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
 
 @media (max-width: 750px) {
 
@@ -204,16 +254,25 @@ footer {
         padding-right: 1rem;
     }
 
-    .motivation-text {
-        font-size: 17px;
+    .cb-motivation-text {
+        font-size: 18px;
         letter-spacing: 0.08em;
     }
 
-    .title {
+    .cb-card {
+        min-height: 115px;
+        padding: 20px;
+    }
+
+    .cb-card-title {
         font-size: 18px;
     }
 
-    .footer {
+    .cb-card-subtitle {
+        font-size: 13px;
+    }
+
+    .cb-footer {
         flex-direction: column;
         gap: 12px;
         text-align: center;
@@ -222,54 +281,51 @@ footer {
 }
 
 </style>
-""", unsafe_allow_html=True)
+""",
+    unsafe_allow_html=True,
+)
 
 
 # ============================================================
-# LOGO
+# LOGO ANZEIGEN
 # ============================================================
-
-logo_path = Path("countorbreak_logo.png")
 
 if logo_path.exists():
 
+    logo_data = base64.b64encode(
+        logo_path.read_bytes()
+    ).decode("utf-8")
+
+    logo_html = (
+        "<div class='cb-logo'>"
+        "<img src='data:image/png;base64,"
+        + logo_data
+        + "' alt='CountOrBreak Logo'>"
+        "</div>"
+    )
+
     st.markdown(
-        """
-        <div class="logo-container">
-            <img src="data:image/png;base64,PLACEHOLDER">
-        </div>
-        """.replace(
-            "PLACEHOLDER",
-            __import__("base64").b64encode(
-                logo_path.read_bytes()
-            ).decode()
-        ),
+        logo_html,
         unsafe_allow_html=True,
     )
 
 else:
 
     st.markdown(
-        """
-        <div style="
-            text-align:center;
-            color:#d8b66a;
-            font-size:28px;
-            margin-bottom:40px;
-        ">
-            COUNT OR BREAK
-        </div>
-        """,
+        "<h1 style='text-align:center; "
+        "color:#d8b66a;'>"
+        "COUNT OR BREAK"
+        "</h1>",
         unsafe_allow_html=True,
     )
 
 
 # ============================================================
-# GOLDENE LINIE
+# GOLDENE TRENNLINIE
 # ============================================================
 
 st.markdown(
-    '<div class="gold-line"></div>',
+    "<div class='cb-gold-line'></div>",
     unsafe_allow_html=True,
 )
 
@@ -279,112 +335,91 @@ st.markdown(
 # ============================================================
 
 st.markdown(
-    """
-    <div class="motivation">
-
-        <div class="motivation-text">
-            TRADE DEN PLAN. NICHT DIE EMOTION.
-        </div>
-
-        <div class="motivation-line"></div>
-
-    </div>
-    """,
+    "<div class='cb-motivation'>"
+    "<div class='cb-motivation-text'>"
+    "TRADE DEN PLAN. NICHT DIE EMOTION."
+    "</div>"
+    "<div class='cb-motivation-line'></div>"
+    "</div>",
     unsafe_allow_html=True,
 )
 
 
 # ============================================================
-# MENÜ
+# HAUPTMENÜ
 # ============================================================
 
 col1, col2 = st.columns(2)
 
 
-with col1:
-
-    st.markdown(
-        """
-        <div class="card">
-
-            <div class="icon">▤</div>
-
-            <div class="title">
-                Journal
-            </div>
-
-            <div class="subtitle">
-                Deine Trades. Deine Geschichte.
-            </div>
-
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-
-with col2:
-
-    st.markdown(
-        """
-        <div class="card">
-
-            <div class="icon">▥</div>
-
-            <div class="title">
-                Auswertungen
-            </div>
-
-            <div class="subtitle">
-                Deine Performance. Deine Erkenntnisse.
-            </div>
-
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
+# ============================================================
+# JOURNAL
+# ============================================================
 
 with col1:
 
     st.markdown(
-        """
-        <div class="card">
-
-            <div class="icon">♞</div>
-
-            <div class="title">
-                Strategien
-            </div>
-
-            <div class="subtitle">
-                Deine Setups. Dein Plan.
-            </div>
-
-        </div>
-        """,
+        "<div class='cb-card'>"
+        "<div class='cb-card-icon'>▤</div>"
+        "<div class='cb-card-title'>Journal</div>"
+        "<div class='cb-card-subtitle'>"
+        "Deine Trades. Deine Geschichte."
+        "</div>"
+        "</div>",
         unsafe_allow_html=True,
     )
 
 
+# ============================================================
+# AUSWERTUNGEN
+# ============================================================
+
 with col2:
 
     st.markdown(
-        """
-        <div class="card">
+        "<div class='cb-card'>"
+        "<div class='cb-card-icon'>▥</div>"
+        "<div class='cb-card-title'>Auswertungen</div>"
+        "<div class='cb-card-subtitle'>"
+        "Deine Performance. Deine Erkenntnisse."
+        "</div>"
+        "</div>",
+        unsafe_allow_html=True,
+    )
 
-            <div class="icon">◇</div>
 
-            <div class="title">
-                Wissen
-            </div>
+# ============================================================
+# STRATEGIEN
+# ============================================================
 
-            <div class="subtitle">
-                Lernen. Verstehen. Wachsen.
-            </div>
+with col1:
 
-        </div>
-        """,
+    st.markdown(
+        "<div class='cb-card'>"
+        "<div class='cb-card-icon'>♞</div>"
+        "<div class='cb-card-title'>Strategien</div>"
+        "<div class='cb-card-subtitle'>"
+        "Deine Setups. Dein Plan."
+        "</div>"
+        "</div>",
+        unsafe_allow_html=True,
+    )
+
+
+# ============================================================
+# WISSEN
+# ============================================================
+
+with col2:
+
+    st.markdown(
+        "<div class='cb-card'>"
+        "<div class='cb-card-icon'>◇</div>"
+        "<div class='cb-card-title'>Wissen</div>"
+        "<div class='cb-card-subtitle'>"
+        "Lernen. Verstehen. Wachsen."
+        "</div>"
+        "</div>",
         unsafe_allow_html=True,
     )
 
@@ -394,21 +429,15 @@ with col2:
 # ============================================================
 
 st.markdown(
-    """
-    <div class="calculator">
-
-        <div class="icon">▦</div>
-
-        <div class="calculator-title">
-            Positionsgrößenrechner
-        </div>
-
-        <div class="calculator-subtitle">
-            Berechne dein Risiko. Kontrolliere dein Handeln.
-        </div>
-
-    </div>
-    """,
+    "<div class='cb-calculator'>"
+    "<div class='cb-calculator-icon'>▦</div>"
+    "<div class='cb-calculator-title'>"
+    "Positionsgrößenrechner"
+    "</div>"
+    "<div class='cb-calculator-subtitle'>"
+    "Berechne dein Risiko. Kontrolliere dein Handeln."
+    "</div>"
+    "</div>",
     unsafe_allow_html=True,
 )
 
@@ -418,24 +447,18 @@ st.markdown(
 # ============================================================
 
 st.markdown(
-    """
-    <div class="footer">
-
-        <div>
-            <span class="footer-gold">♢</span>
-            &nbsp;
-            Risk first. Profits second.
-        </div>
-
-        <div>
-            Trading Journal
-            &nbsp; • &nbsp;
-            Risk Management
-            &nbsp; • &nbsp;
-            Performance
-        </div>
-
-    </div>
-    """,
+    "<div class='cb-footer'>"
+    "<div>"
+    "<span class='cb-footer-gold'>♢</span>"
+    "&nbsp; Risk first. Profits second."
+    "</div>"
+    "<div>"
+    "Trading Journal"
+    "&nbsp; • &nbsp;"
+    "Risk Management"
+    "&nbsp; • &nbsp;"
+    "Performance"
+    "</div>"
+    "</div>",
     unsafe_allow_html=True,
 )
