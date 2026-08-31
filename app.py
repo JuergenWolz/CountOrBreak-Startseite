@@ -41,7 +41,7 @@ POSITIONSGROESSENRECHNER_URL = (
 
 
 # ============================================================
-# BILDER IN BASE64 UMWANDELN
+# BILDER LADEN
 # ============================================================
 
 def image_to_base64(path):
@@ -84,10 +84,6 @@ motivation = random.choice(motivation_quotes)
 st.markdown(
     """
     <style>
-
-    /* ========================================================
-       COUNT OR BREAK – FARBPALETTE
-       ======================================================== */
 
     :root {
 
@@ -139,7 +135,7 @@ st.markdown(
 
 
     /* ========================================================
-       STREAMLIT UI AUSBLENDEN
+       STREAMLIT UI
        ======================================================== */
 
     #MainMenu {
@@ -190,7 +186,7 @@ st.markdown(
 
 
     /* ========================================================
-       GOLDENE TRENNLINIE
+       TRENNLINIE
        ======================================================== */
 
     .cb-top-line {
@@ -222,7 +218,7 @@ st.markdown(
 
 
     /* ========================================================
-       MOTIVATIONSSPRUCH
+       MOTIVATION
        ======================================================== */
 
     .cb-motivation {
@@ -290,7 +286,7 @@ st.markdown(
 
 
     /* ========================================================
-       MENÜ-GRID
+       MENÜ
        ======================================================== */
 
     .cb-menu-grid {
@@ -307,10 +303,6 @@ st.markdown(
         gap: 24px;
     }
 
-
-    /* ========================================================
-       MENÜ-KARTEN
-       ======================================================== */
 
     .cb-card {
 
@@ -354,13 +346,9 @@ st.markdown(
             rgba(0, 0, 0, 0.48);
 
         transition:
-
             transform 0.22s ease,
-
             border-color 0.22s ease,
-
             box-shadow 0.22s ease,
-
             background 0.22s ease;
     }
 
@@ -398,7 +386,7 @@ st.markdown(
 
 
     /* ========================================================
-       PIKTOGRAMME
+       ICONS
        ======================================================== */
 
     .cb-icon-wrapper {
@@ -412,7 +400,6 @@ st.markdown(
         display: flex;
 
         align-items: center;
-
         justify-content: center;
 
         margin-right: 25px;
@@ -455,7 +442,7 @@ st.markdown(
 
 
     /* ========================================================
-       KARTEN-INHALT
+       KARTEN-TEXT
        ======================================================== */
 
     .cb-card-content {
@@ -549,10 +536,10 @@ st.markdown(
 
 
     /* ========================================================
-       POSITIONSGRÖSSENRECHNER
+       POSITIONSGRÖSSENRECHNER – CONTAINER
        ======================================================== */
 
-    .cb-position-section {
+    .cb-calculator-area {
 
         width: min(1120px, 94%);
 
@@ -560,74 +547,22 @@ st.markdown(
     }
 
 
-    .cb-position-card {
-
-        width: 100%;
-
-        min-height: 175px;
-
-        box-sizing: border-box;
-
-        display: flex;
-
-        align-items: center;
-
-        padding: 28px;
-
-        background:
-            linear-gradient(
-                135deg,
-                rgba(39, 30, 13, 0.98),
-                rgba(8, 8, 8, 0.99)
-            );
-
-        border:
-            1px solid
-            rgba(184, 143, 58, 0.88);
-
-        border-radius: 11px;
-
-        box-shadow:
-
-            inset
-            0 0 0 1px
-            rgba(240, 194, 102, 0.04),
-
-            inset
-            0 0 30px
-            rgba(201, 151, 47, 0.04),
-
-            0 0 12px
-            rgba(190, 139, 39, 0.12),
-
-            0 12px 38px
-            rgba(0, 0, 0, 0.52);
-    }
-
-
     /* ========================================================
-       RECHNER ICON
+       POSITIONSGRÖSSENRECHNER – ICON
        ======================================================== */
 
-    .cb-position-icon {
-
-        width: 90px;
-
-        min-width: 90px;
-
-        height: 90px;
+    .cb-calculator-icon {
 
         display: flex;
 
         align-items: center;
-
         justify-content: center;
 
-        margin-right: 28px;
+        height: 100%;
     }
 
 
-    .cb-position-icon img {
+    .cb-calculator-icon img {
 
         width: 90px;
 
@@ -635,29 +570,23 @@ st.markdown(
 
         object-fit: contain;
 
-        display: block;
-
         filter:
             drop-shadow(
                 0 0 8px
                 rgba(220, 171, 72, 0.20)
             );
+
+        transition:
+            transform 0.22s ease,
+            filter 0.22s ease;
     }
 
 
     /* ========================================================
-       RECHNER-INHALT
+       POSITIONSGRÖSSENRECHNER – TITEL
        ======================================================== */
 
-    .cb-position-content {
-
-        flex: 1;
-
-        min-width: 0;
-    }
-
-
-    .cb-position-title {
+    .cb-calculator-title {
 
         color: var(--cb-gold-light);
 
@@ -676,6 +605,8 @@ st.markdown(
 
         letter-spacing: 0.045em;
 
+        line-height: 1.2;
+
         margin-bottom: 9px;
 
         text-shadow:
@@ -684,7 +615,7 @@ st.markdown(
     }
 
 
-    .cb-position-subtitle {
+    .cb-calculator-subtitle {
 
         color: #b2aa9d;
 
@@ -700,50 +631,23 @@ st.markdown(
 
 
     /* ========================================================
-       STREAMLIT LINK BUTTON
+       NATIVER STREAMLIT LINK BUTTON
        ======================================================== */
 
-    .cb-position-button-wrapper {
+    div[data-testid="stLinkButton"] a {
 
-        margin-left: 28px;
-
-        min-width: 230px;
-    }
-
-
-    .cb-position-button-wrapper
-    [data-testid="stLinkButton"] {
-
-        width: 100%;
-    }
-
-
-    .cb-position-button-wrapper
-    a {
-
-        width: 100%;
-
-        min-height: 52px;
-
-        display: flex;
-
-        align-items: center;
-
-        justify-content: center;
-
-        box-sizing: border-box;
+        background:
+            rgba(12, 12, 10, 0.92) !important;
 
         border:
             1px solid
-            var(--cb-gold-border);
-
-        border-radius: 8px;
-
-        background:
-            rgba(12, 12, 10, 0.92);
+            var(--cb-gold-border) !important;
 
         color:
             var(--cb-gold-light) !important;
+
+        border-radius:
+            8px !important;
 
         font-family:
             "Baskerville",
@@ -752,34 +656,30 @@ st.markdown(
             "Book Antiqua",
             Palatino,
             Georgia,
-            serif;
+            serif !important;
 
-        font-size: 16px;
-
-        letter-spacing: 0.045em;
-
-        text-decoration: none !important;
+        letter-spacing:
+            0.045em !important;
 
         transition:
-            all 0.22s ease;
+            all 0.22s ease !important;
     }
 
 
-    .cb-position-button-wrapper
-    a:hover {
+    div[data-testid="stLinkButton"] a:hover {
 
         background:
-            rgba(201, 163, 90, 0.12);
+            rgba(201, 163, 90, 0.12) !important;
 
         border-color:
-            var(--cb-gold-bright);
+            var(--cb-gold-bright) !important;
 
         color:
             var(--cb-gold-bright) !important;
 
         box-shadow:
             0 0 15px
-            rgba(201, 163, 90, 0.22);
+            rgba(201, 163, 90, 0.22) !important;
 
         transform:
             translateY(-2px);
@@ -934,7 +834,7 @@ st.markdown(
         }
 
 
-        .cb-position-section {
+        .cb-calculator-area {
 
             width: 94%;
 
@@ -942,29 +842,7 @@ st.markdown(
         }
 
 
-        .cb-position-card {
-
-            min-height: auto;
-
-            padding: 20px;
-
-            flex-wrap: wrap;
-        }
-
-
-        .cb-position-icon {
-
-            width: 65px;
-
-            min-width: 65px;
-
-            height: 65px;
-
-            margin-right: 16px;
-        }
-
-
-        .cb-position-icon img {
+        .cb-calculator-icon img {
 
             width: 65px;
 
@@ -972,33 +850,15 @@ st.markdown(
         }
 
 
-        .cb-position-content {
-
-            flex: 1;
-        }
-
-
-        .cb-position-title {
+        .cb-calculator-title {
 
             font-size: 20px;
         }
 
 
-        .cb-position-subtitle {
+        .cb-calculator-subtitle {
 
             font-size: 13px;
-        }
-
-
-        .cb-position-button-wrapper {
-
-            width: 100%;
-
-            margin-left: 0;
-
-            margin-top: 18px;
-
-            min-width: 0;
         }
 
 
@@ -1082,7 +942,7 @@ st.html(
 
 
 # ============================================================
-# PIKTOGRAMME VORBEREITEN
+# ICONS VORBEREITEN
 # ============================================================
 
 journal_html = ""
@@ -1158,9 +1018,7 @@ st.html(
     <div class="cb-menu-grid">
 
 
-        <!-- ==================================================
-             JOURNAL
-             ================================================== -->
+        <!-- JOURNAL -->
 
         <div class="cb-card">
 
@@ -1185,9 +1043,7 @@ st.html(
         </div>
 
 
-        <!-- ==================================================
-             AUSWERTUNGEN
-             ================================================== -->
+        <!-- AUSWERTUNGEN -->
 
         <div class="cb-card">
 
@@ -1212,9 +1068,7 @@ st.html(
         </div>
 
 
-        <!-- ==================================================
-             STRATEGIEN
-             ================================================== -->
+        <!-- STRATEGIEN -->
 
         <div class="cb-card">
 
@@ -1239,9 +1093,7 @@ st.html(
         </div>
 
 
-        <!-- ==================================================
-             WISSEN
-             ================================================== -->
+        <!-- WISSEN -->
 
         <div class="cb-card">
 
@@ -1274,20 +1126,21 @@ st.html(
 # ============================================================
 # POSITIONSGRÖSSENRECHNER
 # ============================================================
+#
+# WICHTIG:
+# Hier wird KEIN HTML-Link mehr verwendet.
+#
+# Die Navigation erfolgt über den nativen Streamlit
+# Link-Button.
+# ============================================================
 
 st.markdown(
-    """
-    <div class="cb-position-section">
-    """,
+    '<div class="cb-calculator-area">',
     unsafe_allow_html=True,
 )
 
 
-# ============================================================
-# RECHNER-KARTE
-# ============================================================
-
-col_icon, col_text, col_button = st.columns(
+calculator_col_1, calculator_col_2, calculator_col_3 = st.columns(
     [1.0, 4.0, 1.8],
     vertical_alignment="center",
 )
@@ -1297,13 +1150,13 @@ col_icon, col_text, col_button = st.columns(
 # RECHNER ICON
 # ============================================================
 
-with col_icon:
+with calculator_col_1:
 
     if rechner_data:
 
-        st.markdown(
+        st.html(
             f"""
-            <div class="cb-position-icon">
+            <div class="cb-calculator-icon">
 
                 <img
                     src="data:image/png;base64,{rechner_data}"
@@ -1311,18 +1164,7 @@ with col_icon:
                 >
 
             </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    else:
-
-        st.markdown(
             """
-            <div class="cb-position-icon">
-            </div>
-            """,
-            unsafe_allow_html=True,
         )
 
 
@@ -1330,63 +1172,45 @@ with col_icon:
 # RECHNER TEXT
 # ============================================================
 
-with col_text:
+with calculator_col_2:
 
-    st.markdown(
+    st.html(
         """
-        <div class="cb-position-content">
+        <div>
 
-            <div class="cb-position-title">
+            <div class="cb-calculator-title">
                 Positionsgrößenrechner
             </div>
 
-            <div class="cb-position-subtitle">
+            <div class="cb-calculator-subtitle">
                 Berechne dein Risiko. Kontrolliere dein Handeln.
             </div>
 
         </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-
-# ============================================================
-# RECHNER LINK
-# ============================================================
-
-with col_button:
-
-    st.markdown(
         """
-        <div class="cb-position-button-wrapper">
-        """,
-        unsafe_allow_html=True,
     )
+
+
+# ============================================================
+# RECHNER BUTTON
+# ============================================================
+
+with calculator_col_3:
 
     st.link_button(
         "Rechner öffnen  ›",
         POSITIONSGROESSENRECHNER_URL,
-        help="Positionsgrößenrechner öffnen",
-        type="secondary",
         use_container_width=True,
-    )
-
-    st.markdown(
-        """
-        </div>
-        """,
-        unsafe_allow_html=True,
+        type="secondary",
     )
 
 
 # ============================================================
-# KARTE SCHLIESSEN
+# BEREICH SCHLIESSEN
 # ============================================================
 
 st.markdown(
-    """
-    </div>
-    """,
+    '</div>',
     unsafe_allow_html=True,
 )
 
