@@ -20,7 +20,7 @@ st.set_page_config(
 # DATEIPFADE
 # ============================================================
 
-BASE_PATH = Path(__file__).parent
+BASE_PATH = Path(__file__).resolve().parent
 
 logo_path = BASE_PATH / "countorbreak_logo.png"
 
@@ -28,7 +28,15 @@ icon_journal_path = BASE_PATH / "icon_journal.png"
 icon_auswertungen_path = BASE_PATH / "icon_auswertungen.png"
 icon_strategien_path = BASE_PATH / "icon_strategien.png"
 icon_wissen_path = BASE_PATH / "icon_wissen.png"
-icon_rechner_path = BASE_PATH / "icon_rechner.png"
+
+
+# ============================================================
+# POSITIONSGRÖSSENRECHNER
+# ============================================================
+
+POSITIONSGROESSENRECHNER_URL = (
+    "https://countorbreak-positionsgroessenrechner-u5nbirgq3gdcjz9ufchqrr.streamlit.app/"
+)
 
 
 # ============================================================
@@ -47,7 +55,6 @@ journal_data = image_to_base64(icon_journal_path)
 auswertungen_data = image_to_base64(icon_auswertungen_path)
 strategien_data = image_to_base64(icon_strategien_path)
 wissen_data = image_to_base64(icon_wissen_path)
-rechner_data = image_to_base64(icon_rechner_path)
 
 
 # ============================================================
@@ -76,34 +83,17 @@ st.markdown(
     """
     <style>
 
-    /* ========================================================
-       COUNT OR BREAK – FARBPALETTE
-       ======================================================== */
-
     :root {
 
-        /* Warmes Champagner-Gold passend zu Logo & Icons */
         --cb-gold: #C9A35A;
-
-        /* Heller Goldton für Überschriften */
         --cb-gold-light: #D8B66A;
-
-        /* Highlight / Hover */
         --cb-gold-bright: #E8CB87;
-
-        /* Dunkler Goldton */
         --cb-gold-dark: #77531B;
-
-        /* Gold für Rahmen */
         --cb-gold-border: #A77D35;
 
-        /* Haupttext */
         --cb-text: #EFE4CC;
-
-        /* Beschreibung */
         --cb-subtext: #A9A399;
 
-        /* Hintergrund */
         --cb-background: #040404;
     }
 
@@ -168,6 +158,7 @@ st.markdown(
         width: 100%;
 
         display: flex;
+
         align-items: center;
         justify-content: center;
 
@@ -225,7 +216,7 @@ st.markdown(
 
 
     /* ========================================================
-       MOTIVATIONSSPRUCH
+       MOTIVATION
        ======================================================== */
 
     .cb-motivation {
@@ -241,11 +232,6 @@ st.markdown(
     .cb-motivation-text {
 
         color: var(--cb-gold-light);
-
-        /*
-        Eleganter, logoähnlicher Serifenschnitt.
-        Mehr klassische Luxury-/Premium-Anmutung.
-        */
 
         font-family:
             "Baskerville",
@@ -373,10 +359,6 @@ st.markdown(
     }
 
 
-    /* ========================================================
-       MENÜ-KARTEN HOVER
-       ======================================================== */
-
     .cb-card:hover {
 
         transform: translateY(-4px);
@@ -448,6 +430,7 @@ st.markdown(
             );
 
         transition:
+
             filter 0.22s ease,
 
             transform 0.22s ease;
@@ -479,16 +462,11 @@ st.markdown(
     }
 
 
-    /* ========================================================
-       MENÜ-ÜBERSCHRIFTEN
-       ======================================================== */
-
     .cb-card-title {
 
         color: var(--cb-gold-light);
 
         font-family:
-
             "Baskerville",
             "Baskerville Old Face",
             "Palatino Linotype",
@@ -512,10 +490,6 @@ st.markdown(
             rgba(201, 163, 90, 0.18);
     }
 
-
-    /* ========================================================
-       BESCHREIBUNGEN
-       ======================================================== */
 
     .cb-card-subtitle {
 
@@ -585,6 +559,41 @@ st.markdown(
     }
 
 
+    /*
+       Die komplette Karte ist ein echter Link.
+       Es wird KEIN Rechner-Icon benötigt.
+    */
+
+    .cb-position-link {
+
+        display: block;
+
+        width: 100%;
+
+        color: inherit !important;
+
+        text-decoration: none !important;
+
+        cursor: pointer;
+    }
+
+
+    .cb-position-link:visited {
+
+        color: inherit !important;
+
+        text-decoration: none !important;
+    }
+
+
+    .cb-position-link:hover {
+
+        color: inherit !important;
+
+        text-decoration: none !important;
+    }
+
+
     .cb-position-card {
 
         width: 100%;
@@ -630,8 +639,6 @@ st.markdown(
             0 12px 38px
             rgba(0, 0, 0, 0.52);
 
-        cursor: pointer;
-
         transition:
 
             transform 0.22s ease,
@@ -644,11 +651,8 @@ st.markdown(
     }
 
 
-    /* ========================================================
-       RECHNER HOVER
-       ======================================================== */
-
-    .cb-position-card:hover {
+    .cb-position-link:hover
+    .cb-position-card {
 
         transform: translateY(-4px);
 
@@ -681,74 +685,22 @@ st.markdown(
 
 
     /* ========================================================
-       RECHNER ICON
+       RECHNER-INHALT
        ======================================================== */
 
-    .cb-position-icon {
+    .cb-position-content {
 
-        width: 90px;
+        flex: 1;
 
-        min-width: 90px;
-
-        height: 90px;
-
-        display: flex;
-
-        align-items: center;
-
-        justify-content: center;
-
-        margin-right: 28px;
+        text-align: center;
     }
 
-
-    .cb-position-icon img {
-
-        width: 90px;
-
-        height: 90px;
-
-        object-fit: contain;
-
-        display: block;
-
-        filter:
-            drop-shadow(
-                0 0 8px
-                rgba(220, 171, 72, 0.20)
-            );
-
-        transition:
-
-            transform 0.22s ease,
-
-            filter 0.22s ease;
-    }
-
-
-    .cb-position-card:hover
-    .cb-position-icon img {
-
-        transform: scale(1.05);
-
-        filter:
-            drop-shadow(
-                0 0 13px
-                rgba(225, 178, 78, 0.34)
-            );
-    }
-
-
-    /* ========================================================
-       RECHNER TITEL
-       ======================================================== */
 
     .cb-position-title {
 
         color: var(--cb-gold-light);
 
         font-family:
-
             "Baskerville",
             "Baskerville Old Face",
             "Palatino Linotype",
@@ -948,26 +900,6 @@ st.markdown(
             min-height: 145px;
 
             padding: 20px;
-        }
-
-
-        .cb-position-icon {
-
-            width: 65px;
-
-            min-width: 65px;
-
-            height: 65px;
-
-            margin-right: 16px;
-        }
-
-
-        .cb-position-icon img {
-
-            width: 65px;
-
-            height: 65px;
         }
 
 
@@ -1255,24 +1187,25 @@ st.html(
 # ============================================================
 # POSITIONSGRÖSSENRECHNER
 # ============================================================
+#
+# Die Karte ist vollständig klickbar und öffnet die
+# eigenständige Streamlit-App des Positionsgrößenrechners.
+#
+# Kein Rechner-Icon und keine zusätzliche Bilddatei nötig.
+# ============================================================
 
-if rechner_data:
+st.html(
+    f"""
+    <div class="cb-position-wrapper">
 
-    st.html(
-        f"""
-        <div class="cb-position-wrapper">
+        <a
+            class="cb-position-link"
+            href="{POSITIONSGROESSENRECHNER_URL}"
+            target="_self"
+            aria-label="Positionsgrößenrechner öffnen"
+        >
 
             <div class="cb-position-card">
-
-                <div class="cb-position-icon">
-
-                    <img
-                        src="data:image/png;base64,{rechner_data}"
-                        alt="Positionsgrößenrechner"
-                    >
-
-                </div>
-
 
                 <div class="cb-position-content">
 
@@ -1286,11 +1219,17 @@ if rechner_data:
 
                 </div>
 
+                <div class="cb-arrow">
+                    ›
+                </div>
+
             </div>
 
-        </div>
-        """
-    )
+        </a>
+
+    </div>
+    """
+)
 
 
 # ============================================================
