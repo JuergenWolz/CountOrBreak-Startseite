@@ -28,6 +28,7 @@ icon_journal_path = BASE_PATH / "icon_journal.png"
 icon_auswertungen_path = BASE_PATH / "icon_auswertungen.png"
 icon_strategien_path = BASE_PATH / "icon_strategien.png"
 icon_wissen_path = BASE_PATH / "icon_wissen.png"
+icon_rechner_path = BASE_PATH / "icon_rechner.png"
 
 
 # ============================================================
@@ -55,6 +56,7 @@ journal_data = image_to_base64(icon_journal_path)
 auswertungen_data = image_to_base64(icon_auswertungen_path)
 strategien_data = image_to_base64(icon_strategien_path)
 wissen_data = image_to_base64(icon_wissen_path)
+rechner_data = image_to_base64(icon_rechner_path)
 
 
 # ============================================================
@@ -82,6 +84,10 @@ motivation = random.choice(motivation_quotes)
 st.markdown(
     """
     <style>
+
+    /* ========================================================
+       COUNT OR BREAK – FARBPALETTE
+       ======================================================== */
 
     :root {
 
@@ -216,7 +222,7 @@ st.markdown(
 
 
     /* ========================================================
-       MOTIVATION
+       MOTIVATIONSSPRUCH
        ======================================================== */
 
     .cb-motivation {
@@ -430,9 +436,7 @@ st.markdown(
             );
 
         transition:
-
             filter 0.22s ease,
-
             transform 0.22s ease;
     }
 
@@ -526,11 +530,8 @@ st.markdown(
         margin-left: 18px;
 
         transition:
-
             transform 0.22s ease,
-
             color 0.22s ease,
-
             text-shadow 0.22s ease;
     }
 
@@ -551,46 +552,11 @@ st.markdown(
        POSITIONSGRÖSSENRECHNER
        ======================================================== */
 
-    .cb-position-wrapper {
+    .cb-position-section {
 
         width: min(1120px, 94%);
 
         margin: 34px auto 0 auto;
-    }
-
-
-    /*
-       Die komplette Karte ist ein echter Link.
-       Es wird KEIN Rechner-Icon benötigt.
-    */
-
-    .cb-position-link {
-
-        display: block;
-
-        width: 100%;
-
-        color: inherit !important;
-
-        text-decoration: none !important;
-
-        cursor: pointer;
-    }
-
-
-    .cb-position-link:visited {
-
-        color: inherit !important;
-
-        text-decoration: none !important;
-    }
-
-
-    .cb-position-link:hover {
-
-        color: inherit !important;
-
-        text-decoration: none !important;
     }
 
 
@@ -605,8 +571,6 @@ st.markdown(
         display: flex;
 
         align-items: center;
-
-        justify-content: center;
 
         padding: 28px;
 
@@ -638,49 +602,46 @@ st.markdown(
 
             0 12px 38px
             rgba(0, 0, 0, 0.52);
-
-        transition:
-
-            transform 0.22s ease,
-
-            border-color 0.22s ease,
-
-            box-shadow 0.22s ease,
-
-            background 0.22s ease;
     }
 
 
-    .cb-position-link:hover
-    .cb-position-card {
+    /* ========================================================
+       RECHNER ICON
+       ======================================================== */
 
-        transform: translateY(-4px);
+    .cb-position-icon {
 
-        border-color:
-            var(--cb-gold-bright);
+        width: 90px;
 
-        background:
-            linear-gradient(
-                135deg,
-                rgba(48, 36, 15, 0.99),
-                rgba(10, 10, 9, 0.99)
+        min-width: 90px;
+
+        height: 90px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        margin-right: 28px;
+    }
+
+
+    .cb-position-icon img {
+
+        width: 90px;
+
+        height: 90px;
+
+        object-fit: contain;
+
+        display: block;
+
+        filter:
+            drop-shadow(
+                0 0 8px
+                rgba(220, 171, 72, 0.20)
             );
-
-        box-shadow:
-
-            inset
-            0 0 0 1px
-            rgba(255, 218, 130, 0.055),
-
-            inset
-            0 0 35px
-            rgba(201, 151, 47, 0.065),
-
-            0 0 19px
-            rgba(210, 164, 68, 0.24),
-
-            0 16px 42px
-            rgba(0, 0, 0, 0.62);
     }
 
 
@@ -692,7 +653,7 @@ st.markdown(
 
         flex: 1;
 
-        text-align: center;
+        min-width: 0;
     }
 
 
@@ -735,6 +696,93 @@ st.markdown(
         font-size: 14px;
 
         line-height: 1.5;
+    }
+
+
+    /* ========================================================
+       STREAMLIT LINK BUTTON
+       ======================================================== */
+
+    .cb-position-button-wrapper {
+
+        margin-left: 28px;
+
+        min-width: 230px;
+    }
+
+
+    .cb-position-button-wrapper
+    [data-testid="stLinkButton"] {
+
+        width: 100%;
+    }
+
+
+    .cb-position-button-wrapper
+    a {
+
+        width: 100%;
+
+        min-height: 52px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        box-sizing: border-box;
+
+        border:
+            1px solid
+            var(--cb-gold-border);
+
+        border-radius: 8px;
+
+        background:
+            rgba(12, 12, 10, 0.92);
+
+        color:
+            var(--cb-gold-light) !important;
+
+        font-family:
+            "Baskerville",
+            "Baskerville Old Face",
+            "Palatino Linotype",
+            "Book Antiqua",
+            Palatino,
+            Georgia,
+            serif;
+
+        font-size: 16px;
+
+        letter-spacing: 0.045em;
+
+        text-decoration: none !important;
+
+        transition:
+            all 0.22s ease;
+    }
+
+
+    .cb-position-button-wrapper
+    a:hover {
+
+        background:
+            rgba(201, 163, 90, 0.12);
+
+        border-color:
+            var(--cb-gold-bright);
+
+        color:
+            var(--cb-gold-bright) !important;
+
+        box-shadow:
+            0 0 15px
+            rgba(201, 163, 90, 0.22);
+
+        transform:
+            translateY(-2px);
     }
 
 
@@ -800,7 +848,6 @@ st.markdown(
         .block-container {
 
             padding-left: 1rem;
-
             padding-right: 1rem;
         }
 
@@ -887,7 +934,7 @@ st.markdown(
         }
 
 
-        .cb-position-wrapper {
+        .cb-position-section {
 
             width: 94%;
 
@@ -897,9 +944,37 @@ st.markdown(
 
         .cb-position-card {
 
-            min-height: 145px;
+            min-height: auto;
 
             padding: 20px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .cb-position-icon {
+
+            width: 65px;
+
+            min-width: 65px;
+
+            height: 65px;
+
+            margin-right: 16px;
+        }
+
+
+        .cb-position-icon img {
+
+            width: 65px;
+
+            height: 65px;
+        }
+
+
+        .cb-position-content {
+
+            flex: 1;
         }
 
 
@@ -912,6 +987,18 @@ st.markdown(
         .cb-position-subtitle {
 
             font-size: 13px;
+        }
+
+
+        .cb-position-button-wrapper {
+
+            width: 100%;
+
+            margin-left: 0;
+
+            margin-top: 18px;
+
+            min-width: 0;
         }
 
 
@@ -1187,48 +1274,120 @@ st.html(
 # ============================================================
 # POSITIONSGRÖSSENRECHNER
 # ============================================================
-#
-# Die Karte ist vollständig klickbar und öffnet die
-# eigenständige Streamlit-App des Positionsgrößenrechners.
-#
-# Kein Rechner-Icon und keine zusätzliche Bilddatei nötig.
+
+st.markdown(
+    """
+    <div class="cb-position-section">
+    """,
+    unsafe_allow_html=True,
+)
+
+
+# ============================================================
+# RECHNER-KARTE
 # ============================================================
 
-st.html(
-    f"""
-    <div class="cb-position-wrapper">
+col_icon, col_text, col_button = st.columns(
+    [1.0, 4.0, 1.8],
+    vertical_alignment="center",
+)
 
-        <a
-            class="cb-position-link"
-            href="{POSITIONSGROESSENRECHNER_URL}"
-            target="_self"
-            aria-label="Positionsgrößenrechner öffnen"
-        >
 
-            <div class="cb-position-card">
+# ============================================================
+# RECHNER ICON
+# ============================================================
 
-                <div class="cb-position-content">
+with col_icon:
 
-                    <div class="cb-position-title">
-                        Positionsgrößenrechner
-                    </div>
+    if rechner_data:
 
-                    <div class="cb-position-subtitle">
-                        Berechne dein Risiko. Kontrolliere dein Handeln.
-                    </div>
+        st.markdown(
+            f"""
+            <div class="cb-position-icon">
 
-                </div>
-
-                <div class="cb-arrow">
-                    ›
-                </div>
+                <img
+                    src="data:image/png;base64,{rechner_data}"
+                    alt="Positionsgrößenrechner"
+                >
 
             </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
-        </a>
+    else:
 
-    </div>
+        st.markdown(
+            """
+            <div class="cb-position-icon">
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+
+# ============================================================
+# RECHNER TEXT
+# ============================================================
+
+with col_text:
+
+    st.markdown(
+        """
+        <div class="cb-position-content">
+
+            <div class="cb-position-title">
+                Positionsgrößenrechner
+            </div>
+
+            <div class="cb-position-subtitle">
+                Berechne dein Risiko. Kontrolliere dein Handeln.
+            </div>
+
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+# ============================================================
+# RECHNER LINK
+# ============================================================
+
+with col_button:
+
+    st.markdown(
+        """
+        <div class="cb-position-button-wrapper">
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.link_button(
+        "Rechner öffnen  ›",
+        POSITIONSGROESSENRECHNER_URL,
+        help="Positionsgrößenrechner öffnen",
+        type="secondary",
+        use_container_width=True,
+    )
+
+    st.markdown(
+        """
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+# ============================================================
+# KARTE SCHLIESSEN
+# ============================================================
+
+st.markdown(
     """
+    </div>
+    """,
+    unsafe_allow_html=True,
 )
 
 
